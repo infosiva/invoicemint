@@ -37,8 +37,8 @@ export default async function DashboardPage() {
 
   const stats = {
     total: deals.length,
-    active: deals.filter(d => ['SCOPE_AGREED', 'IN_PROGRESS'].includes(d.status)).length,
-    paid: deals.filter(d => d.status === 'PAID').length,
+    active: deals.filter((d: { status: string }) => ['SCOPE_AGREED', 'IN_PROGRESS'].includes(d.status)).length,
+    paid: deals.filter((d: { status: string }) => d.status === 'PAID').length,
   }
 
   return (
