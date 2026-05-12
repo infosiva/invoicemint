@@ -47,7 +47,7 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
         </div>
       ) : (
         <div className="space-y-4">
-          {deal.invoices.map(inv => (
+          {deal.invoices.map((inv: typeof deal.invoices[0]) => (
             <div key={inv.id} className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>

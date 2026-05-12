@@ -46,7 +46,7 @@ export default async function MilestonesPage({ params }: { params: Promise<{ id:
         </div>
       ) : (
         <div className="space-y-3">
-          {deal.milestones.map(ms => (
+          {deal.milestones.map((ms: typeof deal.milestones[0]) => (
             <div key={ms.id} className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">

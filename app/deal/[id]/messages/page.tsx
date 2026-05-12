@@ -36,7 +36,7 @@ export default async function MessagesPage({ params }: { params: Promise<{ id: s
           </div>
         ) : (
           <div className="divide-y divide-slate-800 max-h-96 overflow-y-auto">
-            {deal.messages.map(msg => {
+            {deal.messages.map((msg: typeof deal.messages[0]) => {
               const isMe = msg.authorId === user.id
               return (
                 <div key={msg.id} className={`p-4 ${isMe ? 'bg-slate-900' : 'bg-slate-950/50'}`}>

@@ -49,7 +49,7 @@ export default async function ScopePage({ params }: { params: Promise<{ id: stri
             <span className="col-span-2 text-right">Unit price</span>
             <span className="col-span-2 text-right">Total</span>
           </div>
-          {deal.scopeItems.map((item, i) => (
+          {deal.scopeItems.map((item: typeof deal.scopeItems[0], i: number) => (
             <div
               key={item.id}
               className={`grid grid-cols-12 px-6 py-4 text-sm ${i % 2 === 0 ? '' : 'bg-slate-900/50'}`}
