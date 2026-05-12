@@ -15,14 +15,15 @@ export default async function DealLayout({
   params,
 }: {
   children: React.ReactNode
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
+  const { id } = await params
   const user = await getSessionUser()
   if (!user) redirect('/login')
 
   const deal = await db.deal.findFirst({
     where: {
-      id: params.id,
+      id,
       OR: [{ vendorId: user.id }, { clientId: user.id }],
     },
   })
@@ -56,7 +57,7 @@ export default async function DealLayout({
           {TABS.map(tab => (
             <Link
               key={tab.path}
-              href={`/deal/${params.id}/${tab.path}`}
+              href={`/deal/${id}/${tab.path}`}
               className="px-4 py-2.5 text-sm font-semibold text-slate-400 hover:text-white border-b-2 border-transparent hover:border-slate-600 transition-colors -mb-px"
             >
               {tab.label}

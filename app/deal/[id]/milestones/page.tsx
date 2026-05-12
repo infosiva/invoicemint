@@ -9,13 +9,14 @@ const MS_STATUS_COLORS: Record<string, string> = {
   REJECTED: 'bg-red-900/40 text-red-300',
 }
 
-export default async function MilestonesPage({ params }: { params: { id: string } }) {
+export default async function MilestonesPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const user = await getSessionUser()
   if (!user) redirect('/login')
 
   const deal = await db.deal.findFirst({
     where: {
-      id: params.id,
+      id,
       OR: [{ vendorId: user.id }, { clientId: user.id }],
     },
     include: { milestones: { orderBy: { dueDate: 'asc' } } },

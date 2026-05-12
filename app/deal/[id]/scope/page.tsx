@@ -2,13 +2,14 @@ import { redirect, notFound } from 'next/navigation'
 import { getSessionUser } from '@/lib/session'
 import { db } from '@/lib/db'
 
-export default async function ScopePage({ params }: { params: { id: string } }) {
+export default async function ScopePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const user = await getSessionUser()
   if (!user) redirect('/login')
 
   const deal = await db.deal.findFirst({
     where: {
-      id: params.id,
+      id,
       OR: [{ vendorId: user.id }, { clientId: user.id }],
     },
     include: { scopeItems: { orderBy: { order: 'asc' } } },
@@ -37,7 +38,7 @@ export default async function ScopePage({ params }: { params: { id: string } }) 
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-10 text-center">
           <p className="text-slate-400 text-sm">No scope items yet.</p>
           {isVendor && (
-            <p className="text-slate-500 text-xs mt-2">Add line items to define what's included in this deal.</p>
+            <p className="text-slate-500 text-xs mt-2">Add line items to define what&apos;s included in this deal.</p>
           )}
         </div>
       ) : (
@@ -68,7 +69,6 @@ export default async function ScopePage({ params }: { params: { id: string } }) 
         </div>
       )}
 
-      {/* Scope approval status */}
       {deal.scopeItems.length > 0 && (
         <div className="mt-6 p-5 bg-slate-900 border border-slate-800 rounded-2xl">
           <div className="flex items-center justify-between">

@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 
-export async function GET(req: NextRequest, { params }: { params: { token: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ token: string }> }) {
+  const { token: tokenParam } = await params
   const invite = await db.inviteToken.findUnique({
-    where: { token: params.token },
+    where: { token: tokenParam },
     include: { deal: { include: { vendor: { select: { email: true } } } } },
   })
 

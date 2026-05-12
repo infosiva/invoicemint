@@ -2,13 +2,14 @@ import { redirect, notFound } from 'next/navigation'
 import { getSessionUser } from '@/lib/session'
 import { db } from '@/lib/db'
 
-export default async function InvoicePage({ params }: { params: { id: string } }) {
+export default async function InvoicePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const user = await getSessionUser()
   if (!user) redirect('/login')
 
   const deal = await db.deal.findFirst({
     where: {
-      id: params.id,
+      id,
       OR: [{ vendorId: user.id }, { clientId: user.id }],
     },
     include: {

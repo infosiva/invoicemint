@@ -2,13 +2,14 @@ import { redirect, notFound } from 'next/navigation'
 import { getSessionUser } from '@/lib/session'
 import { db } from '@/lib/db'
 
-export default async function MessagesPage({ params }: { params: { id: string } }) {
+export default async function MessagesPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const user = await getSessionUser()
   if (!user) redirect('/login')
 
   const deal = await db.deal.findFirst({
     where: {
-      id: params.id,
+      id,
       OR: [{ vendorId: user.id }, { clientId: user.id }],
     },
     include: {
@@ -53,7 +54,7 @@ export default async function MessagesPage({ params }: { params: { id: string } 
         )}
 
         <div className="border-t border-slate-800 p-4">
-          <form action={`/api/deals/${params.id}/messages`} method="POST" className="flex gap-3">
+          <form action={`/api/deals/${id}/messages`} method="POST" className="flex gap-3">
             <input
               name="body"
               type="text"
