@@ -33,15 +33,15 @@ Examples:
 - "Logo design $1500, 3 revisions $150 each" → lineItems:[{description:"Logo design",qty:1,unitPrice:1500},{description:"Revision",qty:3,unitPrice:150}]`
 
 export async function POST(req: NextRequest) {
-  const { text } = await req.json()
-  if (!text?.trim()) {
-    return NextResponse.json({ error: 'No text provided' }, { status: 400 })
-  }
   try {
+    const { text } = await req.json()
+    if (!text?.trim()) {
+      return NextResponse.json({ error: 'No text provided' }, { status: 400 })
+    }
     const today = new Date().toISOString().split('T')[0]
     const completion = await groq.chat.completions.create({
       model: 'llama-3.3-70b-versatile',
-      max_tokens: 400,
+      max_tokens: 800,
       messages: [
         { role: 'system', content: SYSTEM + `\nToday is ${today}.` },
         { role: 'user', content: text },
