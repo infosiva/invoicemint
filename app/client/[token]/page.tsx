@@ -1,102 +1,135 @@
-'use client'
-import { useEffect, useState, Suspense } from 'react'
-import { useRouter, useParams } from 'next/navigation'
+import { notFound } from 'next/navigation'
+import ClientPayment from './ClientPayment'
+import MessageThread from './MessageThread'
 
-interface DealInfo {
-  deal: { id: string; title: string; brief: string | null; vendorEmail: string }
-  email: string
-}
+type Params = { token: string }
 
-function ClientInviteInner() {
-  const router = useRouter()
-  const params = useParams()
-  const token = params.token as string
+export default async function ClientPortalPage({
+  params,
+}: {
+  params: Promise<Params>
+}) {
+  const { token } = await params
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
+  const res = await fetch(`${baseUrl}/api/client/${token}`, { cache: 'no-store' })
 
-  const [info, setInfo] = useState<DealInfo | null>(null)
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [accepting, setAccepting] = useState(false)
+  if (res.status === 404 || res.status === 410) notFound()
+  if (!res.ok) throw new Error('Failed to load deal')
 
-  useEffect(() => {
-    fetch(`/api/invite/${token}`)
-      .then(async res => {
-        if (!res.ok) {
-          const d = await res.json()
-          setError(d.error || 'Invalid invite')
-        } else {
-          const d = await res.json()
-          setInfo(d)
-        }
-      })
-      .finally(() => setLoading(false))
-  }, [token])
+  const { deal } = await res.json()
 
-  async function handleAccept() {
-    setAccepting(true)
-    const res = await fetch('/api/invite/accept', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token }),
-    })
-    const data = await res.json()
+  const fmt = (cents: number) =>
+    new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(
+      cents / 100
+    )
 
-    if (!res.ok) {
-      setError(data.error || 'Failed to accept invite')
-      setAccepting(false)
-      return
-    }
+  const fmtPrice = (value: number) =>
+    new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value)
 
-    router.replace(`/deal/${data.dealId}/scope`)
+  const vendorName = deal.vendor.name ?? deal.vendor.email.split('@')[0]
+  const firstDueDate = deal.milestones.find((m: { dueDate: string | null }) => m.dueDate)?.dueDate
+
+  const milestoneColors: Record<string, string> = {
+    COMPLETE: 'bg-green-400',
+    IN_PROGRESS: 'bg-yellow-400',
+    PENDING: 'bg-slate-500',
   }
 
+  const showCTA =
+    deal.status === 'PENDING_CLIENT' || deal.status === 'SCOPE_AGREED'
+
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="mb-8 text-center">
-          <span className="text-2xl font-black text-white tracking-tight">Deal<span className="text-violet-400">Flow</span></span>
+    <div className="min-h-screen bg-slate-950 text-white">
+      <div className="max-w-xl mx-auto px-4 py-10 space-y-8">
+
+        {/* Hero */}
+        <div className="space-y-2">
+          <p className="text-sm text-slate-400">{vendorName}</p>
+          <h1 className="text-3xl font-bold text-white">{deal.title}</h1>
+          <p className="text-2xl font-semibold text-violet-400">${fmt(deal.totalAmount)}</p>
+          {firstDueDate && (
+            <p className="text-sm text-slate-400">
+              Due {new Date(firstDueDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            </p>
+          )}
+          {deal.brief && <p className="text-slate-300 text-sm pt-1">{deal.brief}</p>}
         </div>
 
-        {loading ? (
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-10 text-center">
-            <div className="w-10 h-10 border-2 border-violet-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-slate-400 text-sm">Loading invite…</p>
-          </div>
-        ) : error ? (
-          <div className="bg-slate-900 border border-red-900/50 rounded-2xl p-8 text-center">
-            <p className="text-red-400 font-semibold mb-2">Invalid invite</p>
-            <p className="text-slate-400 text-sm">{error}</p>
-          </div>
-        ) : info ? (
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8">
-            <p className="text-slate-400 text-sm mb-1">You've been invited by</p>
-            <p className="text-white font-semibold mb-4">{info.deal.vendorEmail}</p>
-
-            <div className="bg-slate-800/50 rounded-xl p-4 mb-6">
-              <p className="text-xs text-slate-400 uppercase tracking-wide font-semibold mb-1">Deal</p>
-              <p className="text-white font-bold text-lg">{info.deal.title}</p>
-              {info.deal.brief && (
-                <p className="text-slate-400 text-sm mt-2 leading-relaxed">{info.deal.brief}</p>
-              )}
+        {/* Scope */}
+        {deal.scopeItems.length > 0 && (
+          <div>
+            <h2 className="text-lg font-semibold text-white mb-3">What&apos;s included</h2>
+            <div className="bg-slate-800 rounded-xl p-4 space-y-2">
+              {deal.scopeItems.map((item: { id: string; description: string; qty: number; unitPrice: number }) => {
+                const lineTotal = item.qty > 1 ? item.qty * item.unitPrice : item.unitPrice
+                return (
+                  <div key={item.id} className="flex items-start justify-between gap-4">
+                    <span className="text-slate-300 text-sm">
+                      {item.qty > 1 ? `${item.qty}× ` : ''}{item.description}
+                    </span>
+                    <span className="text-white text-sm font-medium whitespace-nowrap">
+                      ${fmtPrice(lineTotal)}
+                    </span>
+                  </div>
+                )
+              })}
             </div>
+          </div>
+        )}
 
-            <p className="text-slate-400 text-sm mb-6">
-              You'll be signed in as <span className="text-white">{info.email}</span> to review the scope and approve milestones.
-            </p>
+        {/* Milestones */}
+        {deal.milestones.length > 0 && (
+          <div>
+            <h2 className="text-lg font-semibold text-white mb-3">Payment schedule</h2>
+            <div className="border-l-2 border-slate-700 pl-4 space-y-4">
+              {deal.milestones.map((m: { id: string; title: string; status: string; dueDate: string | null }) => (
+                <div key={m.id} className="flex items-center gap-3">
+                  <div
+                    className={`w-3 h-3 rounded-full flex-shrink-0 -ml-[1.375rem] border-2 border-slate-950 ${
+                      milestoneColors[m.status] ?? 'bg-slate-500'
+                    }`}
+                  />
+                  <div className="flex-1 flex items-center justify-between gap-2">
+                    <span className="text-slate-300 text-sm">{m.title}</span>
+                    {m.dueDate && (
+                      <span className="text-xs text-slate-500 whitespace-nowrap">
+                        {new Date(m.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
-            <button
-              onClick={handleAccept}
-              disabled={accepting}
-              className="w-full bg-violet-600 hover:bg-violet-700 disabled:opacity-50 text-white font-bold py-3 rounded-xl transition-colors"
-            >
-              {accepting ? 'Joining…' : 'Accept & view deal →'}
-            </button>
+        {/* CTA */}
+        {deal.status === 'COMPLETE' ? (
+          <div className="bg-green-900/30 border border-green-500/40 rounded-2xl p-6 text-center">
+            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-500/20 border-2 border-green-400 mx-auto mb-3">
+              <span className="text-green-400 text-xl">&#10003;</span>
+            </div>
+            <p className="text-green-300 font-semibold">Payment received — thank you!</p>
+          </div>
+        ) : deal.status === 'CANCELLED' ? (
+          <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 text-center">
+            <p className="text-slate-400">This deal has been cancelled.</p>
+          </div>
+        ) : showCTA ? (
+          <div className="bg-slate-900 border border-violet-500/30 rounded-2xl p-6">
+            <ClientPayment
+              dealId={deal.id}
+              token={token}
+              amount={deal.totalAmount}
+              depositLabel="Approve & Pay"
+            />
           </div>
         ) : null}
+
+        {/* Message thread */}
+        <MessageThread dealId={deal.id} token={token} messages={deal.messages} />
+
       </div>
     </div>
   )
-}
-
-export default function ClientInvitePage() {
-  return <Suspense><ClientInviteInner /></Suspense>
 }
