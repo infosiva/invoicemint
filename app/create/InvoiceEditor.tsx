@@ -27,7 +27,7 @@ export default function InvoiceEditor({ invoice, onChange }: Props) {
   }, [invoice, onChange])
 
   const addItem = useCallback(() => {
-    onChange({ ...invoice, lineItems: [...invoice.lineItems, { id: Date.now().toString(), description: '', qty: 1, unitPrice: 0 }] })
+    onChange({ ...invoice, lineItems: [...invoice.lineItems, { description: '', qty: 1, unitPrice: 0 }] })
   }, [invoice, onChange])
 
   const removeItem = useCallback((idx: number) => {

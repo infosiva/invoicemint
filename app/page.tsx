@@ -46,6 +46,17 @@ const COMPARE = [
 export default function LandingPage() {
   return (
     <div style={{ background: T.bg, color: T.text, fontFamily: 'Inter,system-ui,sans-serif', minHeight: '100vh' }}>
+      {/* Animated blob bg */}
+      <div style={{ position: 'fixed', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }} aria-hidden>
+        <div style={{ position: 'absolute', top: '-15%', left: '-8%', width: 600, height: 600, borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(139,92,246,0.18) 0%, transparent 70%)', filter: 'blur(80px)',
+          animation: 'blobDrift1 14s ease-in-out infinite' }} />
+        <div style={{ position: 'absolute', bottom: '-10%', right: '-6%', width: 500, height: 500, borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 70%)', filter: 'blur(90px)',
+          animation: 'blobDrift2 18s ease-in-out infinite' }} />
+        <style>{`@keyframes blobDrift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-20px) scale(1.08)}}
+          @keyframes blobDrift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-25px,20px) scale(1.06)}}`}</style>
+      </div>
       <style>{`
         *{box-sizing:border-box;margin:0;padding:0}
         a{text-decoration:none}

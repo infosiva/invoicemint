@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import FloatingChatWrapper from '@/components/FloatingChatWrapper'
 
 export const metadata: Metadata = {
   title: 'DealFlow — Vendor-Client Platform | Proposals, Milestones & Payments',
