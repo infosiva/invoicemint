@@ -11,10 +11,13 @@ export default function VoiceInput({ onTranscript, onParsing }: Props) {
   const [listening, setListening] = useState(false)
   const [transcript, setTranscript] = useState('')
   const [text, setText] = useState('')
-  const recognitionRef = useRef<SpeechRecognition | null>(null)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const recognitionRef = useRef<any>(null)
 
   const startListening = useCallback(() => {
-    const SR = window.SpeechRecognition || (window as Window & { webkitSpeechRecognition?: typeof SpeechRecognition }).webkitSpeechRecognition
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const w = window as any
+    const SR = w.SpeechRecognition || w.webkitSpeechRecognition
     if (!SR) {
       alert('Voice input is not supported in this browser. Try Chrome or Edge.')
       return
@@ -24,9 +27,11 @@ export default function VoiceInput({ onTranscript, onParsing }: Props) {
     recognition.interimResults = true
     recognition.lang = 'en-US'
 
-    recognition.onresult = (e: SpeechRecognitionEvent) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    recognition.onresult = (e: any) => {
       if (!e.results.length) return
-      const t = Array.from(e.results).map(r => r[0].transcript).join('')
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const t = Array.from(e.results).map((r: any) => r[0].transcript).join('')
       setTranscript(t)
       if (e.results[0].isFinal) {
         setText(t)

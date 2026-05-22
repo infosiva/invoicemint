@@ -88,7 +88,23 @@ export default function CreatePage() {
             </div>
           </div>
           <div className="hidden lg:block">
-            <PDFPreview invoice={invoice!} />
+            {invoice && (
+              <PDFPreview
+                docType="invoice"
+                invoiceNumber="INV-001"
+                issueDate={new Date().toISOString().split('T')[0]}
+                dueDate={invoice.dueDate || ''}
+                yourName={invoice.vendorName || ''}
+                yourCompany=""
+                yourEmail=""
+                yourPhone=""
+                clientName={invoice.clientName || ''}
+                clientCompany=""
+                service={invoice.lineItems.map(i => i.description).join(', ')}
+                amount={invoice.lineItems.reduce((sum, i) => sum + i.qty * i.unitPrice, 0).toFixed(2)}
+                generatedText={invoice.notes || ''}
+              />
+            )}
           </div>
         </div>
       </main>
