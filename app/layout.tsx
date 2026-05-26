@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 import FloatingChatWrapper from '@/components/FloatingChatWrapper'
 import BackToTop from '@/components/BackToTop'
@@ -54,7 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="antialiased">{children}<BackToTop accentColor="#6366f1" /></body>
+      <body className="antialiased">{children}<BackToTop accentColor="#6366f1" /><Script defer data-site="invoicemint.cloud" src="http://31.97.56.148:3098/t.js" strategy="afterInteractive" /></body>
     </html>
   )
 }
