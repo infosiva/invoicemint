@@ -5,9 +5,9 @@ import FloatingChatWrapper from '@/components/FloatingChatWrapper'
 import BackToTop from '@/components/BackToTop'
 
 export const metadata: Metadata = {
-  title: 'InvoiceMint — Vendor-Client Platform | Proposals, Milestones & Payments',
-  description: 'The only platform where vendors and clients agree on scope, track milestones, handle change orders, and get paid — all in one place. No more invoice disputes.',
-  keywords: 'vendor client platform, freelance invoicing, scope agreement, milestone tracker, invoice disputes, proposal software',
+  title: 'InvoiceMint — AI Invoice Generator & Freelancer CRM | Get Paid Faster',
+  description: 'Create professional invoices in 60 seconds with AI. Track deals, chase payments, manage your client pipeline. Free for freelancers.',
+  keywords: 'AI invoice generator, freelancer invoicing, get paid faster, invoice software, client pipeline, freelance CRM, invoice automation',
   metadataBase: new URL('https://invoicemint.cloud'),
   openGraph: {
     title: 'InvoiceMint — Scope. Milestone. Pay.',

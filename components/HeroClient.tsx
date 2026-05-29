@@ -12,7 +12,7 @@ const STEPS = [
   { n: '04', label: 'Get paid' },
 ]
 
-const PILLS = ['AI proposals', 'Signed scope', 'Milestone proofs', 'Stripe payments', 'WhatsApp alerts']
+const SOCIAL_PROOF = ['No credit card required', 'Takes 60 seconds', 'Used by 500+ freelancers']
 
 interface Props {
   overrides: ContentOverrides
@@ -21,10 +21,10 @@ interface Props {
 const ease = [0.23, 1, 0.32, 1] as const
 
 export default function HeroClient({ overrides }: Props) {
-  const headline = overrides.headline ?? 'Scope it. Prove it. Get paid.'
-  const subheadline = overrides.subheadline ?? 'AI proposals, signed scope, milestone proofs, and Stripe payments — one deal workspace. No more invoice disputes.'
-  const cta = overrides.cta ?? 'Start free — 3 deals included →'
-  const tagline = overrides.tagline ?? 'The platform Xero & FreshBooks never built'
+  const headline = overrides.headline ?? 'Send invoices in 60 seconds. Get paid faster.'
+  const subheadline = overrides.subheadline ?? 'InvoiceMint uses AI to draft invoices, chase payments, and manage your client pipeline — so you can focus on the work, not the admin.'
+  const cta = overrides.cta ?? 'Create your first invoice free →'
+  const tagline = overrides.tagline ?? 'Faster than Wave · Smarter than HoneyBook'
 
   return (
     <section className="relative w-full overflow-hidden">
@@ -71,10 +71,10 @@ export default function HeroClient({ overrides }: Props) {
 
             {/* Headline */}
             <h1 className="mb-4 text-[clamp(28px,4.5vw,48px)] font-black leading-[1.08] tracking-[-1.5px] text-[#ede9fe]">
-              {headline.includes('Get paid') ? (
+              {headline.includes('Get paid faster') ? (
                 <>
-                  {headline.replace('Get paid.', '')}<br />
-                  <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">Get paid.</span>
+                  Send invoices in 60 seconds.<br />
+                  <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">Get paid faster.</span>
                 </>
               ) : headline}
             </h1>
@@ -100,14 +100,12 @@ export default function HeroClient({ overrides }: Props) {
               </a>
             </div>
 
-            <p className="text-[11px] text-white/25">No credit card · No password · Free forever for 3 deals</p>
-
-            {/* Feature pills */}
+            {/* Social proof pills */}
             <div className="mt-5 flex flex-wrap gap-2">
-              {PILLS.map(p => (
+              {SOCIAL_PROOF.map(p => (
                 <span
                   key={p}
-                  className="rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-[11px] text-white/40"
+                  className="rounded-full border border-violet-500/20 bg-violet-500/[0.06] px-3 py-1 text-[11px] font-medium text-violet-300/70"
                 >
                   {p}
                 </span>
