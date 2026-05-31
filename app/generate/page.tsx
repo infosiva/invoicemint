@@ -181,7 +181,7 @@ export default function GeneratePage() {
       {/* Top bar */}
       <header className="border-b border-slate-800 px-6 py-3 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-4">
-          <Link href="/" className="text-slate-400 hover:text-white text-sm transition-colors">← DealFlow</Link>
+          <Link href="/" className="text-slate-400 hover:text-white text-sm transition-colors">← InvoiceMint</Link>
           <span className="text-slate-700">|</span>
           <h1 className="font-black text-white">InvoiceMint</h1>
           <span className="text-slate-600 text-xs">Quick PDF generator</span>
