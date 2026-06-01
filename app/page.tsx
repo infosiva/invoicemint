@@ -34,11 +34,11 @@ const FREE_FEATURES = ['3 active deals', 'Scope + milestone tracking', 'Online p
 const PRO_FEATURES = ['Unlimited deals', 'WhatsApp notifications', 'Custom invoice branding', 'AI proposal drafting', 'Dispute evidence trail', 'Priority support']
 
 const FAQ = [
-  { q: 'What is InvoiceMint?', a: 'InvoiceMint covers the full project lifecycle — AI proposals, scope agreements, milestone tracking, change orders, and Stripe payments. Unlike Xero or FreshBooks, it starts before the invoice.' },
-  { q: 'Who uses InvoiceMint?', a: 'Any vendor working on projects: freelancers, agencies, contractors, consultants, home service providers, developers. Clients get their own portal.' },
+  { q: 'What is DealFlow?', a: 'DealFlow covers the full project lifecycle — AI proposals, scope agreements, milestone tracking, change orders, and Stripe payments. Unlike Xero or FreshBooks, it starts before the invoice.' },
+  { q: 'Who uses DealFlow?', a: 'Any vendor working on projects: freelancers, agencies, contractors, consultants, home service providers, developers. Clients get their own portal.' },
   { q: 'How does scope agreement work?', a: 'Vendor creates scope line items. Client reviews and approves. Scope locks — extra work requires a signed change order. Eliminates "that wasn\'t included" disputes.' },
   { q: 'Does the client need to sign up?', a: 'Yes — clients create a free account via invite link. Both parties get a shared deal workspace.' },
-  { q: 'How does payment work?', a: 'InvoiceMint generates a Stripe payment link per invoice. Client pays in browser. No Stripe account needed on their side.' },
+  { q: 'How does payment work?', a: 'DealFlow generates a Stripe payment link per invoice. Client pays in browser. No Stripe account needed on their side.' },
 ]
 
 function SectionLabel({ children }: { children: string }) {
@@ -134,7 +134,7 @@ export default function LandingPage() {
             <span>Feature</span>
             <span className="text-center">Xero</span>
             <span className="text-center">FreshBooks</span>
-            <span className="text-center text-violet-400">InvoiceMint</span>
+            <span className="text-center text-violet-400">DealFlow</span>
           </div>
           {COMPARE.map((row, i) => (
             <div
@@ -241,7 +241,7 @@ export default function LandingPage() {
         </div>
         <p>Vendor-client platform — proposals, milestones, payments.</p>
         <p className="mt-1">
-          © {new Date().getFullYear()} InvoiceMint ·{' '}
+          © {new Date().getFullYear()} DealFlow ·{' '}
           <Link href="/privacy" className="transition-colors hover:text-white">Privacy</Link> ·{' '}
           <Link href="/terms" className="transition-colors hover:text-white">Terms</Link>
         </p>

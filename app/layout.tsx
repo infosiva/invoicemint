@@ -5,20 +5,20 @@ import FloatingChatWrapper from '@/components/FloatingChatWrapper'
 import BackToTop from '@/components/BackToTop'
 
 export const metadata: Metadata = {
-  title: 'InvoiceMint — AI Invoice Generator & Freelancer CRM | Get Paid Faster',
+  title: 'DealFlow — AI Invoice Generator & Freelancer CRM | Get Paid Faster',
   description: 'Create professional invoices in 60 seconds with AI. Track deals, chase payments, manage your client pipeline. Free for freelancers.',
   keywords: 'AI invoice generator, freelancer invoicing, get paid faster, invoice software, client pipeline, freelance CRM, invoice automation',
   metadataBase: new URL('https://invoicemint.cloud'),
   openGraph: {
-    title: 'InvoiceMint — Scope. Milestone. Pay.',
-    description: 'Stop chasing invoices. Stop scope disputes. InvoiceMint gives vendors and clients one shared workspace — from proposal to payment.',
+    title: 'DealFlow — Scope. Milestone. Pay.',
+    description: 'Stop chasing invoices. Stop scope disputes. DealFlow gives vendors and clients one shared workspace — from proposal to payment.',
     url: 'https://invoicemint.cloud',
-    siteName: 'InvoiceMint',
+    siteName: 'DealFlow',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'InvoiceMint — Vendor-Client Platform',
+    title: 'DealFlow — Vendor-Client Platform',
     description: 'Proposals. Milestones. Payments. One platform for vendors and clients.',
   },
   robots: { index: true, follow: true },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'InvoiceMint',
+  name: 'DealFlow',
   applicationCategory: 'BusinessApplication',
   description: 'Vendor-client platform for proposals, scope agreement, milestone tracking, and payments.',
   offers: [
