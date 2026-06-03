@@ -1,196 +1,278 @@
-import Link from 'next/link'
-import HeroSection from '@/components/HeroSection'
+'use client'
 
-const FEATURES = [
-  { icon: '📋', title: 'AI-Drafted Proposals', desc: 'Describe in plain text. AI writes full scope and line items.' },
-  { icon: '✍️', title: 'Scope Agreement', desc: 'Both sides sign. Scope locks. No "I thought it was included."' },
-  { icon: '🏁', title: 'Milestone Tracking', desc: 'Upload proof per milestone. Client approves. Invoice unlocks.' },
-  { icon: '🔄', title: 'Change Orders', desc: 'Extra work gets a formal order. Both approve. Evidence stays.' },
-  { icon: '💬', title: 'Deal Comms', desc: 'Every revision and approval in one thread — linked to the deal.' },
-  { icon: '💳', title: 'Stripe Payments', desc: 'Payment link per invoice. Client pays in browser. Instant.' },
-  { icon: '📱', title: 'WhatsApp Alerts', desc: 'Scope approved, payment received — straight to WhatsApp.' },
-  { icon: '🛡️', title: 'Dispute Evidence', desc: 'Signed scope + milestones + message trail — bulletproof.' },
-]
+import { useState } from 'react'
+import Link from 'next/link'
 
 const STEPS = [
-  { n: '01', title: 'Create a deal', desc: 'Add title, brief, client email. AI drafts the proposal.' },
-  { n: '02', title: 'Client approves', desc: 'Client reviews line items via link, signs scope.' },
-  { n: '03', title: 'Track milestones', desc: 'Upload proof. Client approves each milestone.' },
-  { n: '04', title: 'Invoice & get paid', desc: 'Auto-invoice from milestones. Stripe handles payment.' },
+  { icon: '📋', label: 'Create deal', sub: 'AI drafts proposal' },
+  { icon: '✍️', label: 'Client approves', sub: 'Scope locks on sign' },
+  { icon: '🏁', label: 'Track milestones', sub: 'Upload proof, get approved' },
+  { icon: '💳', label: 'Get paid', sub: 'Stripe, instant transfer' },
 ]
 
-const COMPARE = [
-  { feature: 'Scope agreement (both sign)', xero: false, freshbooks: false },
-  { feature: 'Milestone proof uploads', xero: false, freshbooks: false },
-  { feature: 'Change order tracking', xero: false, freshbooks: false },
-  { feature: 'Per-deal threaded comms', xero: false, freshbooks: 'basic' },
-  { feature: 'WhatsApp notifications', xero: false, freshbooks: false },
-  { feature: 'Client portal (no login)', xero: false, freshbooks: false },
-  { feature: 'AI proposal drafting', xero: false, freshbooks: false },
-  { feature: 'Dispute evidence trail', xero: false, freshbooks: false },
-]
+const TABS = ['Scope', 'Milestones', 'Payments', 'Dispute'] as const
+type Tab = typeof TABS[number]
+
+const TAB_CONTENT: Record<Tab, { heading: string; body: string; bullets: string[] }> = {
+  Scope: {
+    heading: 'Lock scope before work starts',
+    body: 'Describe the project in plain text. AI drafts full scope with line items. Both sides sign. Scope is locked — extra work requires a signed change order.',
+    bullets: ['AI-drafted proposals', 'Mutual sign-off', 'Change order workflow', 'No "I thought it was included"'],
+  },
+  Milestones: {
+    heading: 'Evidence-based milestone approvals',
+    body: 'Upload proof for each milestone — screenshots, files, demo links. Client approves per milestone. Next invoice unlocks automatically.',
+    bullets: ['Per-milestone proof upload', 'Client approval flow', 'Auto-invoice on approval', 'Full audit trail'],
+  },
+  Payments: {
+    heading: 'Stripe payments, zero friction',
+    body: 'DealFlow generates a Stripe payment link per invoice. Client pays in browser — no Stripe account needed on their side. Instant transfer.',
+    bullets: ['Stripe-powered', 'No client Stripe needed', 'WhatsApp payment alerts', 'Invoice branding (Pro)'],
+  },
+  Dispute: {
+    heading: 'Bulletproof dispute evidence',
+    body: 'Signed scope + milestone uploads + full message thread = airtight evidence if a client disputes. Every interaction is timestamped and linked to the deal.',
+    bullets: ['Signed scope on record', 'Timestamped milestones', 'Full comms thread', 'Export PDF evidence pack'],
+  },
+}
 
 const FREE_FEATURES = ['3 active deals', 'Scope + milestone tracking', 'Online payments', 'Deal comms thread']
 const PRO_FEATURES = ['Unlimited deals', 'WhatsApp notifications', 'Custom invoice branding', 'AI proposal drafting', 'Dispute evidence trail', 'Priority support']
 
-const FAQ = [
-  { q: 'What is DealFlow?', a: 'DealFlow covers the full project lifecycle — AI proposals, scope agreements, milestone tracking, change orders, and Stripe payments. Unlike Xero or FreshBooks, it starts before the invoice.' },
-  { q: 'Who uses DealFlow?', a: 'Any vendor working on projects: freelancers, agencies, contractors, consultants, home service providers, developers. Clients get their own portal.' },
-  { q: 'How does scope agreement work?', a: 'Vendor creates scope line items. Client reviews and approves. Scope locks — extra work requires a signed change order. Eliminates "that wasn\'t included" disputes.' },
-  { q: 'Does the client need to sign up?', a: 'Yes — clients create a free account via invite link. Both parties get a shared deal workspace.' },
-  { q: 'How does payment work?', a: 'DealFlow generates a Stripe payment link per invoice. Client pays in browser. No Stripe account needed on their side.' },
-]
-
-function SectionLabel({ children }: { children: string }) {
+function DealCardMockup() {
   return (
-    <div className="mb-4 flex items-center gap-2.5">
-      <div className="h-4 w-0.5 rounded-full bg-violet-500" />
-      <span className="text-[11px] font-black uppercase tracking-[1.5px] text-violet-400">{children}</span>
+    <div className="w-full max-w-[360px] rounded-2xl border border-white/[0.08] bg-[#0d0b1a] p-5 shadow-2xl">
+      <div className="mb-3 flex items-center justify-between">
+        <span className="text-[12px] font-bold text-white/60">Brand Redesign</span>
+        <span className="rounded-full bg-green-500/20 px-2.5 py-0.5 text-[10px] font-black text-green-400">Active</span>
+      </div>
+      {/* Scope items */}
+      <div className="mb-3 space-y-1.5">
+        {[
+          { label: 'Logo design', price: '$800', done: true },
+          { label: 'Brand guidelines', price: '$600', done: true },
+          { label: 'Website mockup', price: '$1,200', done: false },
+        ].map(item => (
+          <div key={item.label} className="flex items-center justify-between rounded-lg bg-white/[0.04] px-3 py-2">
+            <div className="flex items-center gap-2">
+              <span className={`h-4 w-4 rounded-full border flex items-center justify-center text-[9px] ${item.done ? 'border-green-500 bg-green-500/20 text-green-400' : 'border-white/20'}`}>
+                {item.done ? '✓' : ''}
+              </span>
+              <span className="text-[11px] text-white/70">{item.label}</span>
+            </div>
+            <span className="text-[11px] font-bold text-white/50">{item.price}</span>
+          </div>
+        ))}
+      </div>
+      {/* Milestone progress */}
+      <div className="mb-3">
+        <div className="mb-1 flex justify-between text-[10px] text-white/30">
+          <span>Milestone progress</span><span className="font-bold text-violet-400">2 / 3</span>
+        </div>
+        <div className="h-1.5 rounded-full bg-white/10">
+          <div className="h-1.5 w-[66%] rounded-full bg-violet-500" />
+        </div>
+      </div>
+      {/* Payment status */}
+      <div className="flex items-center justify-between rounded-lg border border-violet-500/20 bg-violet-500/10 px-3 py-2">
+        <span className="text-[11px] text-white/60">Payment due</span>
+        <span className="text-[12px] font-black text-violet-300">$1,400</span>
+      </div>
     </div>
   )
 }
 
 export default function LandingPage() {
+  const [activeTab, setActiveTab] = useState<Tab>('Scope')
+
   return (
-    <div className="min-h-screen bg-[#06060f] text-[#ede9fe]">
+    <div className="min-h-screen bg-[#0a0a0a] text-white">
+      {/* Glow */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-[500px] w-[700px] rounded-full bg-violet-600/10 blur-[120px]" />
+      </div>
+
       {/* Nav */}
-      <nav className="sticky top-0 z-50 flex h-[52px] items-center justify-between border-b border-white/[0.07] bg-[#06060f]/88 px-6 backdrop-blur-2xl">
-        <span className="text-[17px] font-black tracking-[-0.5px] text-[#ede9fe]">
+      <nav className="sticky top-0 z-50 flex h-[52px] items-center justify-between border-b border-white/[0.07] bg-[#0a0a0a]/90 px-5 backdrop-blur-xl">
+        <span className="text-[16px] font-black tracking-tight text-[#ede9fe]">
           Invoice<span className="text-violet-400">Mint</span>
         </span>
         <div className="flex items-center gap-3">
-          <Link href="/generate" className="text-[13px] text-white/40 transition-colors hover:text-white hidden sm:block">
+          <Link href="/generate" className="hidden text-[12px] text-white/40 hover:text-white transition-colors sm:block">
             Quick Invoice
           </Link>
-          <Link href="/login" className="text-[13px] text-white/40 transition-colors hover:text-white hidden sm:block">
+          <Link href="/login" className="hidden text-[12px] text-white/40 hover:text-white transition-colors sm:block">
             Log in
           </Link>
           <Link
             href="/login"
-            className="rounded-[9px] bg-violet-700 px-3.5 py-1.5 text-[12px] font-bold text-white transition-all duration-150 hover:bg-violet-600 active:scale-[0.97]"
+            className="rounded-lg bg-violet-700 px-3.5 py-1.5 text-[12px] font-bold text-white transition-all duration-150 hover:bg-violet-600 active:scale-[0.97]"
           >
             Get started free →
           </Link>
         </div>
       </nav>
 
-      {/* Hero */}
-      <HeroSection />
+      {/* ── HERO ── */}
+      <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-5 pt-14 pb-10 lg:grid-cols-2 lg:gap-12 lg:pt-16">
+        {/* Left */}
+        <div className="flex flex-col justify-center">
+          <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1">
+            <span className="h-1.5 w-1.5 rounded-full bg-green-400" />
+            <span className="text-[11px] font-semibold text-green-300">3 free deals included — no credit card</span>
+          </div>
+          <h1 className="mb-3 text-[clamp(28px,4.5vw,48px)] font-black leading-[1.05] tracking-tight text-[#ede9fe]">
+            Scope it.<br />
+            <span className="text-violet-400">Prove it.</span><br />
+            Get paid.
+          </h1>
+          <p className="mb-6 text-[14px] leading-relaxed text-white/50">
+            AI-drafted proposals, mutual scope sign-off, milestone tracking, and Stripe payments — in one deal workspace. Stop losing revenue to scope disputes.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/login"
+              className="rounded-xl bg-violet-600 px-7 py-3 text-[14px] font-black text-white transition-all duration-150 hover:bg-violet-500 active:scale-[0.97]"
+            >
+              Start free →
+            </Link>
+            <Link
+              href="/generate"
+              className="rounded-xl border border-white/[0.08] bg-white/[0.04] px-7 py-3 text-[14px] font-bold text-white/60 transition-all duration-150 hover:border-white/20 hover:text-white active:scale-[0.97]"
+            >
+              Quick invoice
+            </Link>
+          </div>
+        </div>
 
-      {/* Trust bar */}
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mb-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.06] sm:grid-cols-4">
-          {[['✅', 'No signup required'], ['🔒', 'Secure & encrypted'], ['⚡', 'Instant results'], ['🆓', 'Free to start']].map(([icon, label]) => (
-            <div key={label} className="bg-[#0d0b1a] py-4 text-center">
-              <div className="text-xl">{icon}</div>
-              <div className="mt-1 text-[11px] text-white/40">{label}</div>
+        {/* Right */}
+        <div className="flex items-center justify-center lg:justify-end">
+          <DealCardMockup />
+        </div>
+      </section>
+
+      {/* ── 4-STEP FLOW ── */}
+      <div className="border-y border-white/[0.06] bg-white/[0.02]">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-px px-5 py-0 sm:grid-cols-4">
+          {STEPS.map((s, i) => (
+            <div key={s.label} className="flex items-center gap-3 px-4 py-4">
+              <span className="text-xl">{s.icon}</span>
+              <div>
+                <div className="text-[12px] font-bold text-white/80">{s.label}</div>
+                <div className="text-[10px] text-white/35">{s.sub}</div>
+              </div>
+              {i < STEPS.length - 1 && (
+                <div className="ml-auto hidden text-white/15 sm:block">→</div>
+              )}
             </div>
           ))}
         </div>
       </div>
 
-      {/* How it works */}
-      <section id="how-it-works" className="mx-auto mb-16 max-w-6xl px-4 sm:px-6">
-        <SectionLabel>How it works</SectionLabel>
-        <h2 className="mb-1 text-[clamp(20px,3vw,26px)] font-black tracking-[-0.5px] text-[#ede9fe]">From lead to paid in 4 steps</h2>
-        <p className="mb-6 text-[13px] text-white/40">Under 10 minutes to set up your first deal.</p>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {STEPS.map(s => (
-            <div key={s.n} className="rounded-2xl border border-white/[0.07] bg-[#0d0b1a] p-5">
-              <div className="mb-2 text-[28px] font-black leading-none tracking-[-1px] text-violet-500/20">{s.n}</div>
-              <h3 className="mb-1.5 text-[13px] font-bold text-[#ede9fe]">{s.title}</h3>
-              <p className="text-[11px] leading-relaxed text-white/40">{s.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="mx-auto mb-16 max-w-6xl px-4 sm:px-6">
-        <SectionLabel>Features</SectionLabel>
-        <h2 className="mb-1 text-[clamp(20px,3vw,26px)] font-black tracking-[-0.5px] text-[#ede9fe]">Everything vendors and clients need</h2>
-        <p className="mb-6 text-[13px] text-white/40">All industries. Any project size.</p>
-        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-          {FEATURES.map(f => (
-            <div
-              key={f.title}
-              className="rounded-xl border border-white/[0.07] bg-[#0d0b1a] p-4 transition-colors duration-150 hover:border-violet-500/20"
+      {/* ── TABBED FEATURES ── */}
+      <section className="mx-auto max-w-6xl px-5 py-10">
+        <p className="mb-4 text-[11px] font-black uppercase tracking-widest text-violet-400">Features</p>
+        {/* Tab buttons */}
+        <div className="mb-6 flex gap-1 rounded-xl border border-white/[0.07] bg-white/[0.03] p-1 w-fit">
+          {TABS.map(tab => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`rounded-lg px-4 py-1.5 text-[12px] font-bold transition-all duration-150 ${
+                activeTab === tab
+                  ? 'bg-violet-600 text-white shadow-sm'
+                  : 'text-white/40 hover:text-white'
+              }`}
             >
-              <div className="mb-2 text-xl">{f.icon}</div>
-              <h3 className="mb-1 text-[12px] font-bold text-[#ede9fe]">{f.title}</h3>
-              <p className="text-[11px] leading-relaxed text-white/40">{f.desc}</p>
-            </div>
+              {tab}
+            </button>
           ))}
         </div>
-      </section>
-
-      {/* Comparison */}
-      <section className="mx-auto mb-16 max-w-3xl px-4 sm:px-6">
-        <SectionLabel>vs competitors</SectionLabel>
-        <h2 className="mb-1 text-[clamp(20px,3vw,26px)] font-black tracking-[-0.5px] text-[#ede9fe]">Why not just use Xero or FreshBooks?</h2>
-        <p className="mb-6 text-[13px] text-white/40">They handle invoices. We handle the entire deal.</p>
-        <div className="overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d0b1a]">
-          <div className="grid grid-cols-[1fr_80px_100px_90px] border-b border-white/[0.07] bg-white/[0.03] px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-white/30">
-            <span>Feature</span>
-            <span className="text-center">Xero</span>
-            <span className="text-center">FreshBooks</span>
-            <span className="text-center text-violet-400">DealFlow</span>
+        {/* Tab content */}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <div className="flex flex-col justify-center">
+            <h3 className="mb-2 text-[clamp(18px,2.5vw,24px)] font-black tracking-tight text-[#ede9fe]">
+              {TAB_CONTENT[activeTab].heading}
+            </h3>
+            <p className="mb-4 text-[13px] leading-relaxed text-white/50">
+              {TAB_CONTENT[activeTab].body}
+            </p>
+            <div className="space-y-2">
+              {TAB_CONTENT[activeTab].bullets.map(b => (
+                <div key={b} className="flex items-center gap-2 text-[12px] text-white/60">
+                  <span className="text-violet-400">✓</span> {b}
+                </div>
+              ))}
+            </div>
           </div>
-          {COMPARE.map((row, i) => (
-            <div
-              key={row.feature}
-              className={`grid grid-cols-[1fr_80px_100px_90px] border-t border-white/[0.06] px-4 py-2.5 text-[11px] ${i % 2 === 1 ? 'bg-white/[0.01]' : ''}`}
-            >
-              <span className="text-white/60">{row.feature}</span>
-              <span className="text-center">{row.xero ? '✅' : '❌'}</span>
-              <span className="text-center">{row.freshbooks === 'basic' ? '⚠️' : row.freshbooks ? '✅' : '❌'}</span>
-              <span className="text-center font-bold text-violet-400">✅</span>
+          {/* UI mockup card placeholder — consistent with active tab */}
+          <div className="flex items-center justify-center lg:justify-end">
+            <div className="w-full max-w-[360px] rounded-2xl border border-white/[0.08] bg-[#0d0b1a] p-5">
+              <div className="mb-3 flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-violet-500" />
+                <span className="text-[11px] font-bold text-white/50">{activeTab} view</span>
+              </div>
+              <div className="space-y-2">
+                {TAB_CONTENT[activeTab].bullets.map((b, i) => (
+                  <div key={b} className="flex items-center gap-3 rounded-lg bg-white/[0.04] px-3 py-2.5">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-violet-500/20 text-[9px] font-black text-violet-400">
+                      {i + 1}
+                    </span>
+                    <span className="text-[12px] text-white/60">{b}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 rounded-lg border border-violet-500/20 bg-violet-500/10 p-3 text-[11px] text-violet-300">
+                All {activeTab.toLowerCase()} data is timestamped and cryptographically signed.
+              </div>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
-      {/* Pricing */}
-      <section className="mx-auto mb-16 max-w-2xl px-4 sm:px-6">
-        <SectionLabel>Pricing</SectionLabel>
-        <h2 className="mb-1 text-[clamp(20px,3vw,26px)] font-black tracking-[-0.5px] text-[#ede9fe]">Simple pricing</h2>
-        <p className="mb-6 text-[13px] text-white/40">Start free. Upgrade when you need more.</p>
+      {/* ── PRICING ── */}
+      <section className="mx-auto max-w-3xl px-5 pb-10">
+        <p className="mb-4 text-[11px] font-black uppercase tracking-widest text-violet-400">Pricing</p>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {/* Free */}
-          <div className="rounded-2xl border border-white/[0.07] bg-[#0d0b1a] p-7">
+          <div className="rounded-2xl border border-white/[0.08] bg-[#0d0b1a] p-6">
             <div className="mb-1 text-[13px] font-black text-[#ede9fe]">Free</div>
-            <div className="mb-5 text-[30px] font-black tracking-[-1px] text-[#ede9fe]">
+            <div className="mb-4 text-[32px] font-black tracking-tight text-[#ede9fe]">
               $0 <span className="text-[14px] font-normal text-white/30">forever</span>
             </div>
-            {FREE_FEATURES.map(f => (
-              <div key={f} className="mb-2 flex items-center gap-2.5 text-[12px] text-white/60">
-                <span className="text-violet-400">✓</span> {f}
-              </div>
-            ))}
+            <div className="space-y-2">
+              {FREE_FEATURES.map(f => (
+                <div key={f} className="flex items-center gap-2 text-[12px] text-white/60">
+                  <span className="text-violet-400">✓</span> {f}
+                </div>
+              ))}
+            </div>
             <Link
               href="/login"
-              className="mt-5 block rounded-xl border border-white/[0.08] bg-white/[0.05] py-3 text-center text-[13px] font-bold text-white/60 transition-all duration-150 hover:border-white/20 hover:text-white active:scale-[0.97]"
+              className="mt-5 block rounded-xl border border-white/[0.08] bg-white/[0.05] py-2.5 text-center text-[13px] font-bold text-white/60 transition-all duration-150 hover:border-white/20 hover:text-white active:scale-[0.97]"
             >
               Start free →
             </Link>
           </div>
           {/* Pro */}
-          <div className="relative rounded-2xl bg-gradient-to-br from-violet-700 to-indigo-600 p-7">
+          <div className="relative rounded-2xl bg-gradient-to-br from-violet-700 to-indigo-600 p-6">
             <div className="absolute -top-3 right-5 rounded-full bg-green-400 px-3 py-0.5 text-[10px] font-black text-black">
               Popular
             </div>
             <div className="mb-1 text-[13px] font-black text-white">Pro</div>
-            <div className="mb-5 text-[30px] font-black tracking-[-1px] text-white">
-              $12 <span className="text-[14px] font-normal text-white/50">/ month</span>
+            <div className="mb-4 text-[32px] font-black tracking-tight text-white">
+              $9 <span className="text-[14px] font-normal text-white/50">/ month</span>
             </div>
-            {PRO_FEATURES.map(f => (
-              <div key={f} className="mb-2 flex items-center gap-2.5 text-[12px] text-white/80">
-                <span className="text-white/60">✓</span> {f}
-              </div>
-            ))}
+            <div className="space-y-2">
+              {PRO_FEATURES.map(f => (
+                <div key={f} className="flex items-center gap-2 text-[12px] text-white/80">
+                  <span className="text-white/60">✓</span> {f}
+                </div>
+              ))}
+            </div>
             <Link
               href="/login"
-              className="mt-5 block rounded-xl bg-white/90 py-3 text-center text-[13px] font-black text-violet-700 transition-all duration-150 hover:bg-white active:scale-[0.97]"
+              className="mt-5 block rounded-xl bg-white/90 py-2.5 text-center text-[13px] font-black text-violet-700 transition-all duration-150 hover:bg-white active:scale-[0.97]"
             >
               Start Pro →
             </Link>
@@ -198,53 +280,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="mx-auto mb-16 max-w-2xl px-4 sm:px-6">
-        <SectionLabel>FAQ</SectionLabel>
-        <h2 className="mb-6 text-[clamp(20px,3vw,26px)] font-black tracking-[-0.5px] text-[#ede9fe]">Frequently asked questions</h2>
-        <div className="space-y-2">
-          {FAQ.map(({ q, a }) => (
-            <details
-              key={q}
-              className="group overflow-hidden rounded-xl border border-white/[0.07] bg-[#0d0b1a]"
-            >
-              <summary className="flex cursor-pointer list-none items-center justify-between px-5 py-4 text-[13px] font-bold text-[#ede9fe]">
-                {q}
-                <span className="text-white/30 text-sm group-open:rotate-180 transition-transform duration-200">↓</span>
-              </summary>
-              <p className="px-5 pb-4 text-[12px] leading-relaxed text-white/50">{a}</p>
-            </details>
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="mx-auto mb-16 max-w-2xl px-4 sm:px-6">
-        <div className="rounded-2xl border border-violet-500/20 bg-gradient-to-br from-violet-500/10 to-indigo-500/[0.06] p-12 text-center">
-          <h2 className="mb-3 text-[clamp(20px,3vw,28px)] font-black tracking-[-0.5px] text-[#ede9fe]">
-            Stop losing deals to scope disputes
-          </h2>
-          <p className="mb-7 text-[14px] text-white/40">Start with 3 free deals. No credit card. No password.</p>
-          <Link
-            href="/login"
-            className="inline-flex items-center rounded-xl bg-violet-600 px-8 py-3.5 text-[14px] font-black text-white transition-all duration-150 hover:bg-violet-500 active:scale-[0.97]"
-          >
-            Create your first deal →
-          </Link>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-white/[0.07] px-5 py-6 text-center text-[11px] text-white/30">
-        <div className="mb-1.5 text-[14px] font-black text-[#ede9fe]">
-          Invoice<span className="text-violet-400">Mint</span>
-        </div>
-        <p>Vendor-client platform — proposals, milestones, payments.</p>
-        <p className="mt-1">
-          © {new Date().getFullYear()} DealFlow ·{' '}
-          <Link href="/privacy" className="transition-colors hover:text-white">Privacy</Link> ·{' '}
-          <Link href="/terms" className="transition-colors hover:text-white">Terms</Link>
-        </p>
+      {/* ── FOOTER ── */}
+      <footer className="border-t border-white/[0.07] px-5 py-5 text-center text-[11px] text-white/30">
+        <span className="mr-3 font-black text-[#ede9fe]">Invoice<span className="text-violet-400">Mint</span></span>
+        © {new Date().getFullYear()} ·{' '}
+        <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link> ·{' '}
+        <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
       </footer>
     </div>
   )
