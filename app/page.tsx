@@ -26,7 +26,7 @@ const TAB_CONTENT: Record<Tab, { heading: string; body: string; bullets: string[
   },
   Payments: {
     heading: 'Stripe payments, zero friction',
-    body: 'DealFlow generates a Stripe payment link per invoice. Client pays in browser — no Stripe account needed on their side. Instant transfer.',
+    body: 'InvoiceMint generates a Stripe payment link per invoice. Client pays in browser — no Stripe account needed on their side. Instant transfer.',
     bullets: ['Stripe-powered', 'No client Stripe needed', 'WhatsApp payment alerts', 'Invoice branding (Pro)'],
   },
   Dispute: {
@@ -119,15 +119,15 @@ export default function LandingPage() {
         <div className="flex flex-col justify-center">
           <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1">
             <span className="h-1.5 w-1.5 rounded-full bg-green-400" />
-            <span className="text-[11px] font-semibold text-green-300">3 free deals included — no credit card</span>
+            <span className="text-[11px] font-semibold text-green-300">AI invoice generator — free to start</span>
           </div>
           <h1 className="mb-3 text-[clamp(28px,4.5vw,48px)] font-black leading-[1.05] tracking-tight text-[#ede9fe]">
-            Scope it.<br />
-            <span className="text-violet-400">Prove it.</span><br />
-            Get paid.
+            Create invoices.<br />
+            <span className="text-violet-400">Get paid faster.</span><br />
+            No disputes.
           </h1>
           <p className="mb-6 text-[14px] leading-relaxed text-white/50">
-            AI-drafted proposals, mutual scope sign-off, milestone tracking, and Stripe payments — in one deal workspace. Stop losing revenue to scope disputes.
+            AI drafts professional invoices in seconds, tracks milestones, locks scope with client sign-off, and accepts Stripe payments — all in one workspace.
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
