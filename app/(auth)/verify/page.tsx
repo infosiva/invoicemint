@@ -28,19 +28,33 @@ function VerifyInner() {
   }, [params, router])
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center px-4">
-      <div className="w-full max-w-sm text-center">
-        <span className="text-2xl font-black text-white tracking-tight mb-8 block">Deal<span className="text-violet-400">Flow</span></span>
+    <div style={{ minHeight: '100dvh', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
+      <div style={{ width: '100%', maxWidth: '380px', textAlign: 'center' }}>
+        <div style={{ fontSize: '22px', fontWeight: 800, color: '#0f172a', letterSpacing: '-0.5px', marginBottom: 24 }}>
+          Deal<span style={{ color: '#059669' }}>Flow</span>
+        </div>
+
         {status === 'verifying' ? (
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8">
-            <div className="w-10 h-10 border-2 border-violet-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-slate-300 text-sm">Verifying your link…</p>
+          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 16, padding: '32px', boxShadow: '0 4px 24px rgba(0,0,0,.06)' }}>
+            <div style={{ width: 40, height: 40, border: '3px solid #e2e8f0', borderTopColor: '#059669', borderRadius: '50%', margin: '0 auto 16px', animation: 'spin 0.8s linear infinite' }} />
+            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+            <p style={{ color: '#64748b', fontSize: '14px' }}>Verifying your link…</p>
           </div>
         ) : (
-          <div className="bg-slate-900 border border-red-900/50 rounded-2xl p-8">
-            <p className="text-red-400 font-semibold mb-2">Link expired</p>
-            <p className="text-slate-400 text-sm mb-4">{error}</p>
-            <a href="/login" className="text-violet-400 text-sm hover:underline">Request a new link →</a>
+          <div style={{ background: '#fff', border: '1px solid #fecaca', borderRadius: 16, padding: '32px', boxShadow: '0 4px 24px rgba(0,0,0,.06)' }}>
+            <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(239,68,68,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </div>
+            <p style={{ fontWeight: 600, fontSize: '15px', color: '#0f172a', marginBottom: 4 }}>Link expired</p>
+            <p style={{ color: '#64748b', fontSize: '13px', marginBottom: 16 }}>{error}</p>
+            <a
+              href="/login"
+              style={{ display: 'inline-block', padding: '10px 20px', background: '#059669', color: '#fff', borderRadius: 10, fontSize: '13px', fontWeight: 600, textDecoration: 'none' }}
+            >
+              Request a new link →
+            </a>
           </div>
         )}
       </div>
