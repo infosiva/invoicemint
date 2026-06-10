@@ -10,9 +10,12 @@ export type ParsedInvoice = {
   dueDate: string
   notes: string
   milestones?: { label: string; percent: number }[]
+  invoiceNumber?: string
+  currency?: 'USD' | 'GBP' | 'EUR' | 'INR'
 }
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
+let _groq: Groq | null = null
+function getGroq() { if (!_groq) _groq = new Groq({ apiKey: process.env.GROQ_API_KEY! }); return _groq }
 
 const SYSTEM = `You are an invoice parser. Extract invoice details from natural language.
 Return ONLY valid JSON matching this exact shape — no markdown, no explanation:
@@ -39,7 +42,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No text provided' }, { status: 400 })
     }
     const today = new Date().toISOString().split('T')[0]
-    const completion = await groq.chat.completions.create({
+    const completion = await getGroq().chat.completions.create({
       model: 'llama-3.3-70b-versatile',
       max_tokens: 800,
       messages: [
