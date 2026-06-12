@@ -14,7 +14,8 @@ export async function POST(req: NextRequest) {
       max_tokens: 400,
     })
     return NextResponse.json({ text: res.choices[0]?.message?.content ?? 'Let me help with your invoicing!' })
-  } catch {
+  } catch (err) {
+    console.error('[invoicemint][chat]', err)
     return NextResponse.json({ text: 'Create your first invoice above — it\'s free!' }, { status: 200 })
   }
 }
