@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import InvoiceDemo from '@/components/InvoiceDemo'
 
 // Invoice panel data — cycling animation
 const INVOICES = [
@@ -118,19 +119,14 @@ export default function LandingPage() {
           <p className="mb-7 max-w-[420px] text-[15px] leading-relaxed text-slate-500">
             AI drafts your invoice in seconds. Lock scope, track milestones, accept Stripe payments — no disputes.
           </p>
-          <Link
-            href="/login"
-            className="inline-flex w-fit items-center rounded-xl bg-teal-600 px-8 py-3.5 text-[14px] font-black text-white transition-colors duration-150 hover:bg-teal-700 active:scale-[0.97]"
-            style={{ transition: 'background-color 150ms, transform 100ms' }}
-          >
-            Create your first invoice →
-          </Link>
-          <p className="mt-3 text-[11px] text-slate-400">Free forever · No credit card needed</p>
+          <p className="text-[12px] text-slate-400">↗ Try it live on the right — no sign-up needed</p>
         </div>
 
-        {/* Right — animated invoice panel */}
+        {/* Right — inline invoice demo (zero auth) */}
         <div className="flex items-center justify-center lg:justify-end">
-          <AnimatedInvoicePanel />
+          <div className="w-full max-w-[420px]">
+            <InvoiceDemo />
+          </div>
         </div>
       </section>
 
