@@ -2,9 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import type { ParsedInvoice } from '@/app/api/parse-invoice/route'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
-
 export async function POST(req: NextRequest) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '')
   try {
     const { invoice, senderEmail }: { invoice: ParsedInvoice; senderEmail: string } = await req.json()
 

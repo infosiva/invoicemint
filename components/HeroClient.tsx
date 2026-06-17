@@ -22,7 +22,7 @@ const ease = [0.23, 1, 0.32, 1] as const
 
 export default function HeroClient({ overrides }: Props) {
   const headline = overrides.headline ?? 'Send invoices in 60 seconds. Get paid faster.'
-  const subheadline = overrides.subheadline ?? 'DealFlow uses AI to draft invoices, chase payments, and manage your client pipeline — so you can focus on the work, not the admin.'
+  const subheadline = overrides.subheadline ?? 'InvoiceMint uses AI to draft invoices, chase payments, and manage your client pipeline — so you can focus on the work, not the admin.'
   const cta = overrides.cta ?? 'Create your first invoice free →'
   const tagline = overrides.tagline ?? 'Faster than Wave · Smarter than HoneyBook'
 
