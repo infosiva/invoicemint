@@ -3,7 +3,12 @@
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
-  --primary: #0f766e;
+  --accent: #059669;
+  --accent-2: #047857;
+  --border: #a7f3d0;
+  --surface-1: #ffffff;
+  --surface-2: #ecfdf5;
+  --primary: #059669;
 }
 
 @theme inline {
@@ -14,10 +19,18 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background, #f8fafc);
+  color: var(--foreground, #0f172a);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ── Mobile: prevent horizontal overflow on all devices ── */
 html, body { overflow-x: hidden; max-width: 100%; }
+
+/* ── Accent utility classes ── */
+.accent-bg { background-color: var(--accent); }
+.accent-text { color: var(--accent); }
+.accent-border { border-color: var(--border); }
+.surface-1 { background-color: var(--surface-1); }
+.surface-2 { background-color: var(--surface-2); }

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Groq from "groq-sdk";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Anthropic from "@anthropic-ai/sdk";
+import { logCategory } from "@/app/api/trending/route";
 
 type InvoiceData = {
   service: string;
@@ -23,6 +24,23 @@ type InvoiceData = {
   dueDate?: string;
 };
 
+const invoiceTypeGuide: Record<string, string> = {
+  hourly: 'This is an hourly-rate invoice. Include hours worked, hourly rate, and calculated total. Add a brief description of work done.',
+  project: 'This is a fixed-price project invoice. List deliverables clearly. Include milestone or phase breakdowns if applicable.',
+  retainer: 'This is a monthly retainer invoice. Reference the retainer agreement period. Note any additional hours or out-of-scope work separately.',
+  subscription: 'This is a subscription/recurring invoice. Include billing period, subscription tier, and renewal date.',
+  default: 'Create a professional invoice with clear line items, amounts, and payment terms.',
+}
+
+function detectInvoiceType(service: string, details: string): string {
+  const text = (service + ' ' + (details || '')).toLowerCase()
+  if (text.includes('hour') || text.includes('/hr') || text.includes('per hour')) return 'hourly'
+  if (text.includes('retainer') || text.includes('monthly') || text.includes('ongoing')) return 'retainer'
+  if (text.includes('subscription') || text.includes('saas') || text.includes('license')) return 'subscription'
+  if (text.includes('project') || text.includes('deliverable') || text.includes('milestone')) return 'project'
+  return 'default'
+}
+
 const buildPrompt = (data: InvoiceData) => {
   const isQuote = data.docType === "quote";
   const docLabel = isQuote ? "Quote / Estimate" : "Invoice";
@@ -34,7 +52,12 @@ const buildPrompt = (data: InvoiceData) => {
     .filter(Boolean)
     .join(", ");
 
+  const invoiceType = detectInvoiceType(data.service, data.details)
+  const typeInstruction = invoiceTypeGuide[invoiceType] || invoiceTypeGuide.default
+
   return `Generate a professional ${docLabel} text for the following:
+
+${typeInstruction}
 
 Service: ${data.service}
 Client Type: ${data.clientType}
@@ -201,6 +224,11 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
+
+    // Log invoice type for trending categories
+    const invoiceType = detectInvoiceType(data.service, data.details)
+    if (invoiceType !== 'default') logCategory(invoiceType)
+    else if (data.clientType) logCategory(data.clientType)
 
     return NextResponse.json({ result, provider: usedProvider });
   } catch (error) {
