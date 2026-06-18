@@ -31,8 +31,20 @@ export default function LandingPage() {
           borderColor: 'var(--border, #a7f3d0)',
         }}
       >
-        <span className="text-[16px] font-black tracking-tight text-slate-900">
-          Invoice<span style={{ color: 'var(--accent, #059669)' }}>Mint</span>
+        <span className="flex items-center gap-2">
+          <span
+            className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-md"
+            style={{ background: 'linear-gradient(135deg, #047857, #059669)' }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="2" width="16" height="20" rx="2" stroke="white" strokeWidth="2"/>
+              <path d="M8 8h8" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+              <path d="M8 12.5L10.5 15L16 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </span>
+          <span className="text-[16px] font-black tracking-tight text-slate-900">
+            Invoice<span style={{ color: 'var(--accent, #059669)' }}>Mint</span>
+          </span>
         </span>
         <div className="flex items-center gap-3">
           <Link href="/generate" className="hidden text-[12px] text-slate-500 transition-colors hover:text-slate-900 sm:block">
