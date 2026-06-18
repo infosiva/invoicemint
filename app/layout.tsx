@@ -58,7 +58,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="antialiased" style={{ background: 'var(--background, #f8fafc)' }}>{children}<BackToTop accentColor="#059669" /><Script defer data-site="invoicemint.cloud" src="https://31.97.56.148:3098/t.js" strategy="afterInteractive" /><FeedbackWidget siteName="InvoiceMint" /></body>
+      <body className="antialiased" style={{ background: 'var(--background, #f8fafc)' }}>
+        {children}
+        <FloatingChatWrapper />
+        <FeedbackWidget siteName="InvoiceMint" />
+        <BackToTop accentColor="#059669" />
+        <Script defer data-site="invoicemint.cloud" src="https://31.97.56.148:3098/t.js" strategy="afterInteractive" />
+      </body>
     </html>
   )
 }
