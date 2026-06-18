@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 export default function FloatingChatWrapper() {
   const [open, setOpen] = useState(false)
   const [msgs, setMsgs] = useState<{ role: 'user' | 'bot'; text: string }[]>([
-    { role: 'bot', text: 'Hi! Need help creating an invoice or chasing payments? 💼' },
+    { role: 'bot', text: "I'm InvoiceAI. I help with proposals, scope agreements, milestone tracking, and getting paid on time. Are you a vendor or a client?" },
   ])
   const [input, setInput] = useState('')
 
@@ -30,8 +30,10 @@ export default function FloatingChatWrapper() {
   return (
     <>
       <motion.button
+        data-testid="chatbot-fab"
+        aria-label="Open chat"
         onClick={() => setOpen(o => !o)}
-        whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.93 }}
         style={{ position: 'fixed', bottom: 24, right: 24, width: 52, height: 52, borderRadius: '50%',
           background: 'linear-gradient(135deg,#10b981,#059669)', border: 'none', cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
