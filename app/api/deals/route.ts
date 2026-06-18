@@ -61,12 +61,12 @@ export async function POST(req: NextRequest) {
       const vendor = await db.user.findUnique({ where: { id: session.userId } })
 
       await resend.emails.send({
-        from: 'DealFlow <noreply@dealflow.app>',
+        from: 'InvoiceMint <noreply@invoicemint.cloud>',
         to: clientEmail.trim(),
         subject: `${vendor?.email ?? 'Someone'} invited you to review a deal`,
         html: `
           <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
-            <h2 style="color:#7c3aed">You've been invited to DealFlow</h2>
+            <h2 style="color:#7c3aed">You've been invited to InvoiceMint</h2>
             <p>${vendor?.email ?? 'A vendor'} has shared a deal: <strong>${title}</strong></p>
             <p>Click below to review the scope and terms:</p>
             <a href="${inviteUrl}" style="display:inline-block;background:#7c3aed;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;margin:12px 0">

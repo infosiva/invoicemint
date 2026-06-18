@@ -23,10 +23,10 @@ export default function AdBanner({
   }, []);
 
   return (
-    <div className={`overflow-hidden ${className}`}>
+    <div className={`overflow-hidden ${className}`} style={{ minHeight: 0 }}>
       <ins
         className="adsbygoogle"
-        style={{ display: "block" }}
+        style={{ display: "block", minHeight: 0 }}
         data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_ID}
         data-ad-slot={slot}
         data-ad-format={format}

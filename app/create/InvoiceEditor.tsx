@@ -8,6 +8,13 @@ interface Props {
   onChange: (invoice: ParsedInvoice) => void
 }
 
+const CURRENCY_SYMBOLS: Record<string, string> = {
+  USD: '$',
+  GBP: '£',
+  EUR: '€',
+  INR: '₹',
+}
+
 function calcTotal(invoice: ParsedInvoice): number {
   const sub = invoice.lineItems.reduce((s, i) => s + i.qty * i.unitPrice, 0)
   if (!invoice.discount) return sub
@@ -16,7 +23,15 @@ function calcTotal(invoice: ParsedInvoice): number {
     : sub - invoice.discount.value
 }
 
+function formatAmount(amount: number, currency: string = 'USD'): string {
+  const sym = CURRENCY_SYMBOLS[currency] ?? '$'
+  return `${sym}${Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount)}`
+}
+
 export default function InvoiceEditor({ invoice, onChange }: Props) {
+  const currency = invoice.currency ?? 'USD'
+  const invoiceNumber = invoice.invoiceNumber ?? 'INV-001'
+
   const updateItem = useCallback((idx: number, field: keyof ParsedInvoice['lineItems'][0], value: string) => {
     const items = invoice.lineItems.map((item, i) =>
       i === idx
@@ -35,9 +50,36 @@ export default function InvoiceEditor({ invoice, onChange }: Props) {
   }, [invoice, onChange])
 
   const total = calcTotal(invoice)
+  const sym = CURRENCY_SYMBOLS[currency] ?? '$'
 
   return (
     <div className="space-y-6">
+      {/* Invoice number + currency row */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label className="text-xs font-semibold text-slate-400 uppercase tracking-wide block mb-1.5">Invoice number</label>
+          <input
+            value={invoiceNumber}
+            onChange={e => onChange({ ...invoice, invoiceNumber: e.target.value })}
+            placeholder="INV-001"
+            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-violet-500 transition-colors font-mono"
+          />
+        </div>
+        <div>
+          <label className="text-xs font-semibold text-slate-400 uppercase tracking-wide block mb-1.5">Currency</label>
+          <select
+            value={currency}
+            onChange={e => onChange({ ...invoice, currency: e.target.value as ParsedInvoice['currency'] })}
+            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-violet-500 transition-colors"
+          >
+            <option value="USD">USD — US Dollar ($)</option>
+            <option value="GBP">GBP — British Pound (£)</option>
+            <option value="EUR">EUR — Euro (€)</option>
+            <option value="INR">INR — Indian Rupee (₹)</option>
+          </select>
+        </div>
+      </div>
+
       {/* Client / Vendor */}
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
@@ -115,7 +157,7 @@ export default function InvoiceEditor({ invoice, onChange }: Props) {
                 className="col-span-2 bg-transparent text-slate-300 text-sm text-right focus:outline-none focus:bg-slate-800 rounded px-1 py-0.5 transition-colors w-full"
               />
               <div className="col-span-2 flex items-center justify-end gap-1">
-                <span className="text-white text-sm font-semibold">${Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.qty * item.unitPrice)}</span>
+                <span className="text-white text-sm font-semibold">{sym}{Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.qty * item.unitPrice)}</span>
                 <button
                   onClick={() => removeItem(i)}
                   className="text-slate-700 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all ml-1 text-xs"
@@ -128,10 +170,10 @@ export default function InvoiceEditor({ invoice, onChange }: Props) {
           <div className="grid grid-cols-12 px-4 py-3 border-t border-slate-700 bg-slate-800/30">
             <span className="col-span-10 text-right text-slate-400 text-sm font-semibold">
               {invoice.discount
-                ? `Total (after ${invoice.discount.value}${invoice.discount.type === 'percent' ? '%' : '$'} discount)`
+                ? `Total (after ${invoice.discount.value}${invoice.discount.type === 'percent' ? '%' : sym} discount)`
                 : 'Total'}
             </span>
-            <span className="col-span-2 text-right text-white font-black text-base">${Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(total)}</span>
+            <span className="col-span-2 text-right text-white font-black text-base">{formatAmount(total, currency)}</span>
           </div>
         </div>
       </div>

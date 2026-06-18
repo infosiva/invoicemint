@@ -23,12 +23,12 @@ export async function sendMagicLink(email: string): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/verify?token=${token}`
 
   await resend.emails.send({
-    from: 'DealFlow <noreply@dealflow.app>',
+    from: 'InvoiceMint <noreply@invoicemint.cloud>',
     to: email,
-    subject: 'Your login link for DealFlow',
+    subject: 'Your login link for InvoiceMint',
     html: `
       <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px">
-        <h2 style="margin:0 0 16px">Log in to DealFlow</h2>
+        <h2 style="margin:0 0 16px">Log in to InvoiceMint</h2>
         <p style="color:#555">Click the button below to log in. This link expires in 15 minutes.</p>
         <a href="${url}" style="display:inline-block;background:#0f172a;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;margin:16px 0">
           Log in →
