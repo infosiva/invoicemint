@@ -3,6 +3,7 @@ import Groq from "groq-sdk";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import Anthropic from "@anthropic-ai/sdk";
 import { logCategory } from "@/app/api/trending/route";
+import { AI_LIMITER } from '@/lib/rateLimit'
 
 type InvoiceData = {
   service: string;
@@ -166,6 +167,8 @@ async function generateWithClaude(data: InvoiceData): Promise<string> {
 }
 
 export async function POST(request: NextRequest) {
+  const limited = AI_LIMITER.check(request); if (limited) return limited
+
   try {
     const body = await request.json();
     const {

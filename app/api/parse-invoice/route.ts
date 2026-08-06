@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Groq from 'groq-sdk'
+import { AI_LIMITER } from '@/lib/rateLimit'
 
 export type ParsedInvoice = {
   clientName: string
@@ -36,6 +37,8 @@ Examples:
 - "Logo design $1500, 3 revisions $150 each" → lineItems:[{description:"Logo design",qty:1,unitPrice:1500},{description:"Revision",qty:3,unitPrice:150}]`
 
 export async function POST(req: NextRequest) {
+  const limited = AI_LIMITER.check(req); if (limited) return limited
+
   try {
     const { text } = await req.json()
     if (!text?.trim()) {

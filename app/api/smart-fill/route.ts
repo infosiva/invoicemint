@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
+import { AI_LIMITER } from '@/lib/rateLimit'
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
@@ -25,6 +26,8 @@ async function fetchPageText(url: string): Promise<string> {
 }
 
 export async function POST(req: NextRequest) {
+  const limited = AI_LIMITER.check(req); if (limited) return limited
+
   if (!process.env.ANTHROPIC_API_KEY) {
     return NextResponse.json({ error: "API not configured" }, { status: 500 });
   }
