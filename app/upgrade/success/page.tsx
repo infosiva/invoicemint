@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function UpgradeSuccessPage() {
   return (
-    <div className="min-h-[60vh] flex items-center justify-center">
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center">
       <div className="text-center">
         <div className="w-20 h-20 bg-violet-600/20 border border-violet-600/30 rounded-full flex items-center justify-center mx-auto mb-6">
           <span className="text-4xl">🎉</span>

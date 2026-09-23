@@ -47,7 +47,7 @@ export default function CreatePage() {
 
   if (stage === 'input') {
     return (
-      <main className="max-w-2xl mx-auto px-4 py-16">
+      <main className="max-w-2xl mx-auto px-4 py-16 bg-slate-950 min-h-screen">
         <h1 className="text-3xl font-black text-white">Create an Invoice</h1>
         <p className="text-slate-400 mb-12">
           Speak or type — we&apos;ll build the invoice for you.
@@ -65,7 +65,7 @@ export default function CreatePage() {
 
   if (stage === 'edit') {
     return (
-      <main className="max-w-6xl mx-auto px-4 py-8">
+      <main className="max-w-6xl mx-auto px-4 py-8 bg-slate-950 min-h-screen">
         <div className="grid lg:grid-cols-2 gap-8">
           <div>
             <InvoiceEditor invoice={invoice!} onChange={setInvoice} />
@@ -113,7 +113,7 @@ export default function CreatePage() {
 
   // send stage
   return (
-    <main className="max-w-2xl mx-auto px-4 py-16">
+    <main className="max-w-2xl mx-auto px-4 py-16 bg-slate-950 min-h-screen">
       <SendSheet invoice={invoice!} onBack={() => setStage('edit')} />
     </main>
   )

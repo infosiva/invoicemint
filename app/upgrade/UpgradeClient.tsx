@@ -35,7 +35,7 @@ export default function UpgradeClient({ isPro }: { isPro: boolean }) {
 
   if (isPro) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center">
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 bg-violet-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-3xl">✓</span>
@@ -51,7 +51,7 @@ export default function UpgradeClient({ isPro }: { isPro: boolean }) {
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-slate-950 p-8">
       <div className="mb-8">
         <h1 className="text-2xl font-black text-white">Upgrade to Pro</h1>
         <p className="text-slate-400 text-sm mt-1">Unlock unlimited deals and premium features</p>
