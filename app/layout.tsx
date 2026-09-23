@@ -4,6 +4,7 @@ import './globals.css'
 import FloatingChatWrapper from '@/components/FloatingChatWrapper'
 import BackToTop from '@/components/BackToTop'
 import FeedbackWidget from '@/components/FeedbackWidget'
+import { getSiteFlags } from '@/lib/flags'
 
 export const metadata: Metadata = {
   title: 'InvoiceMint — AI Invoice Generator for Freelancers | Get Paid Faster',
@@ -48,7 +49,8 @@ const jsonLd = {
   ],
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const flags = await getSiteFlags('invoicemint')
   return (
     <html lang="en">
       <head>
@@ -65,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="antialiased" style={{ background: 'var(--background, #f8fafc)' }}>
         {children}
-        <FloatingChatWrapper />
+        {flags.chatbot && <FloatingChatWrapper />}
         <FeedbackWidget siteName="InvoiceMint" />
         <Script defer data-site="invoicemint.cloud" src="http://31.97.56.148:3098/t.js" strategy="afterInteractive" />
         <BackToTop accentColor="#059669" />
