@@ -127,7 +127,7 @@ async function generateWithGroq(prompt: string): Promise<string> {
   const client = new Groq({ apiKey });
   const completion = await withTimeout(
     client.chat.completions.create({
-      model: (process.env.GROQ_MODEL || "llama-3.3-70b-versatile").trim(),
+      model: (process.env.GROQ_MODEL || "qwen/qwen3.8-27b").trim(),
       messages: [{ role: "user", content: prompt }],
       max_tokens: 600,
       temperature: 0.7,

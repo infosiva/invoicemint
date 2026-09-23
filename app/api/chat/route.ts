@@ -11,12 +11,20 @@ export async function POST(req: NextRequest) {
   try {
     const { messages, system } = await req.json()
     const sysPrompt = system ?? 'You are InvoiceAI — a freelance billing and invoicing expert. Help users create professional invoices, chase late payments, set payment terms, and manage client billing. Be practical and concise.'
-    const res = await groq().chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
-      messages: [{ role: 'system', content: sysPrompt }, ...messages],
-      max_tokens: 400,
-    })
-    return NextResponse.json({ text: res.choices[0]?.message?.content ?? 'Let me help with your invoicing!' })
+    for (const model of ['qwen/qwen3.8-27b', 'openai/gpt-oss-20b']) {
+      try {
+        const res = await groq().chat.completions.create({
+          model,
+          messages: [{ role: 'system', content: sysPrompt }, ...messages],
+          max_tokens: 400,
+        })
+        const text = res.choices[0]?.message?.content
+        if (text) return NextResponse.json({ text })
+      } catch (err) {
+        console.warn(`[invoicemint][chat] ${model} failed`, err)
+      }
+    }
+    return NextResponse.json({ text: 'Let me help with your invoicing!' })
   } catch (err) {
     console.error('[invoicemint][chat]', err)
     return NextResponse.json({ text: 'Create your first invoice above — it\'s free!' }, { status: 200 })

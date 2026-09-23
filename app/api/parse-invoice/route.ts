@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
     }
     const today = new Date().toISOString().split('T')[0]
     const completion = await getGroq().chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
+      model: 'qwen/qwen3.8-27b',
       max_tokens: 800,
       messages: [
         { role: 'system', content: SYSTEM + `\nToday is ${today}.` },
