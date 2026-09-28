@@ -142,7 +142,7 @@ async function generateWithGemini(prompt: string): Promise<string> {
   if (!apiKey) throw new Error("GEMINI_API_KEY not set");
   const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({
-    model: (process.env.GEMINI_MODEL || "gemini-1.5-flash").trim(),
+    model: (process.env.GEMINI_MODEL || "gemini-2.5-flash-lite").trim(),
   });
   const result = await withTimeout(model.generateContent(prompt), 8000);
   return result.response.text();
