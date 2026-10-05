@@ -6,6 +6,7 @@ import BackToTop from '@/components/BackToTop'
 import FeedbackWidget from '@/components/FeedbackWidget'
 import { getSiteFlags } from '@/lib/flags'
 
+import { MotionProvider } from "@infosiva/shared-ui/modern";
 export const metadata: Metadata = {
   title: 'InvoiceMint — AI Invoice Generator for Freelancers | Get Paid Faster',
   description: 'Create professional invoices in seconds with AI. Lock scope, track milestones, accept Stripe payments. No disputes. Free for freelancers.',
@@ -66,7 +67,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body className="antialiased" style={{ background: 'var(--background, #f8fafc)' }}>
-        {children}
+        <MotionProvider>{children}</MotionProvider>
         {flags.chatbot && <FloatingChatWrapper />}
         <FeedbackWidget siteName="InvoiceMint" />
         <Script defer data-site="invoicemint.cloud" src="http://31.97.56.148:3098/t.js" strategy="afterInteractive" />

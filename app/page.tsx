@@ -6,6 +6,7 @@ import LiveStatsBar from '@/components/LiveStatsBar'
 import PlanPreview from '@/components/PlanPreview'
 import DashboardPreview from '@/components/DashboardPreview'
 import TrendingTopics from '@/components/TrendingTopics'
+import { MagneticButton } from "@infosiva/shared-ui/modern";
 
 const STEPS = [
   { n: '1', label: 'Describe the project', sub: 'Plain text, AI structures it' },
@@ -112,9 +113,9 @@ export default function LandingPage() {
 
           {/* Primary CTA */}
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link
-              href="/generate"
-              className="inline-flex items-center justify-center rounded-xl px-6 py-3 text-[14px] font-black text-white shadow-lg"
+            <Link href="/generate" style={{ display: 'inline-flex' }}>
+            <MagneticButton
+              className="rounded-xl px-6 py-3 text-[14px] font-black text-white shadow-lg"
               style={{
                 background: 'var(--accent, #059669)',
                 boxShadow: '0 4px 14px rgba(5,150,105,0.35)',
@@ -124,6 +125,7 @@ export default function LandingPage() {
               onMouseLeave={e => (e.currentTarget.style.background = 'var(--accent, #059669)')}
             >
               Create your first invoice →
+            </MagneticButton>
             </Link>
             <p className="text-[12px] text-slate-400">↗ Try it live on the right — no sign-up needed</p>
           </div>
