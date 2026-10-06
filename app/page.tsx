@@ -12,57 +12,48 @@ const STEPS = [
   { n: '1', label: 'Describe the project', sub: 'Plain text, AI structures it' },
   { n: '2', label: 'Client approves scope', sub: 'Sign-off locks the deal' },
   { n: '3', label: 'Track milestones', sub: 'Upload proof, get approved' },
-  { n: '4', label: 'Get paid', sub: 'Stripe, instant transfer' },
+  { n: '4', label: 'Get paid', sub: 'Client pays by card via Stripe' },
 ]
 
 const FEATURE_PILLS = [
-  '⚡ AI drafts in seconds',
-  '🔒 Scope lock-in',
-  '📦 Milestone tracking',
+  'AI drafts in seconds',
+  'Scope lock-in',
+  'Milestone tracking',
 ]
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen text-slate-900" style={{ background: 'var(--background, #f8fafc)' }}>
+    <div className="aurora min-h-screen text-slate-900">
       {/* Sticky navbar */}
       <nav
         className="sticky top-0 z-50 flex h-[52px] items-center justify-between px-5 border-b backdrop-blur-xl"
         style={{
-          background: 'rgba(248,250,252,0.9)',
-          borderColor: 'var(--border, #a7f3d0)',
+          background: 'rgba(255,251,235,0.85)',
+          borderColor: 'var(--border, #f1dca0)',
         }}
       >
-        <span className="flex items-center gap-2">
-          <span
-            className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-md"
-            style={{ background: 'linear-gradient(135deg, #047857, #059669)' }}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="4" y="2" width="16" height="20" rx="2" stroke="white" strokeWidth="2"/>
-              <path d="M8 8h8" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-              <path d="M8 12.5L10.5 15L16 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+        <Link href="/" aria-label="InvoiceMint home" className="tap flex items-center gap-2">
+          <img src="/icon.svg" alt="" width={28} height={28} className="h-7 w-7 rounded-lg" />
+          <span className="text-[17px] font-black tracking-tight text-slate-900">
+            Invoice<span style={{ color: 'var(--accent, #a16207)' }}>Mint</span>
           </span>
-          <span className="text-[16px] font-black tracking-tight text-slate-900">
-            Invoice<span style={{ color: 'var(--accent, #059669)' }}>Mint</span>
-          </span>
-        </span>
+        </Link>
         <div className="flex items-center gap-3">
-          <Link href="/generate" className="hidden text-[12px] text-slate-500 transition-colors hover:text-slate-900 sm:block">
-            Quick Invoice
-          </Link>
-          <Link href="/login" className="hidden text-[12px] text-slate-500 transition-colors hover:text-slate-900 sm:block">
+          <a href="#pricing" className="tap hidden text-[13px] text-slate-600 transition-colors hover:text-slate-900 sm:inline-flex">
+            Pricing
+          </a>
+          <Link href="/login" className="tap hidden text-[13px] text-slate-600 transition-colors hover:text-slate-900 sm:inline-flex">
             Log in
           </Link>
           <Link
             href="/generate"
-            className="rounded-lg px-3.5 py-1.5 text-[12px] font-bold text-white"
+            className="press tap inline-flex rounded-lg px-3.5 text-[13px] font-bold text-white"
             style={{
-              background: 'var(--accent, #059669)',
+              background: 'var(--accent, #a16207)',
               transition: 'background-color 150ms, transform 100ms',
             }}
-            onMouseEnter={e => (e.currentTarget.style.background = 'var(--accent-2, #047857)')}
-            onMouseLeave={e => (e.currentTarget.style.background = 'var(--accent, #059669)')}
+            onMouseEnter={e => (e.currentTarget.style.background = 'var(--accent-2, #854d0e)')}
+            onMouseLeave={e => (e.currentTarget.style.background = 'var(--accent, #a16207)')}
           >
             Get started free →
           </Link>
@@ -70,16 +61,16 @@ export default function LandingPage() {
       </nav>
 
       {/* ── HERO ── */}
-      <section className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-5 pb-12 pt-14 lg:grid-cols-2 lg:gap-16 lg:pt-20">
+      <section className="rise mx-auto grid max-w-6xl grid-cols-1 gap-8 px-5 pb-12 pt-10 lg:grid-cols-[5fr_6fr] lg:gap-12 lg:pt-16">
         {/* Left */}
         <div className="flex flex-col justify-center">
           {/* Badge */}
           <div
             className="mb-5 inline-flex w-fit items-center gap-2 rounded-full px-3 py-1 border"
-            style={{ background: 'var(--surface-2, #ecfdf5)', borderColor: 'var(--border, #a7f3d0)' }}
+            style={{ background: 'var(--surface-2, #fef6dc)', borderColor: 'var(--border, #f1dca0)' }}
           >
-            <span className="h-1.5 w-1.5 rounded-full" style={{ background: 'var(--accent, #059669)' }} />
-            <span className="text-[11px] font-semibold" style={{ color: 'var(--accent, #059669)' }}>
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: 'var(--accent, #a16207)' }} />
+            <span className="text-[11px] font-semibold" style={{ color: 'var(--accent, #a16207)' }}>
               AI invoicing — free to start
             </span>
           </div>
@@ -87,10 +78,10 @@ export default function LandingPage() {
           {/* H1 — visible on first paint, no opacity:0 */}
           <h1 className="mb-4 text-[clamp(30px,4.5vw,50px)] font-black leading-[1.05] tracking-tight text-slate-900">
             Invoice clients.<br />
-            <span style={{ color: 'var(--accent, #059669)' }}>Get paid on time.</span>
+            <span style={{ color: 'var(--accent, #a16207)' }}>Get paid on time.</span>
           </h1>
 
-          <p className="mb-6 max-w-[420px] text-[15px] leading-relaxed text-slate-500">
+          <p className="mb-6 max-w-[420px] text-[15px] leading-relaxed text-slate-600">
             AI drafts your invoice in seconds. Lock scope, track milestones, accept Stripe payments — no disputes, no chasing.
           </p>
 
@@ -101,9 +92,9 @@ export default function LandingPage() {
                 key={pill}
                 className="rounded-full px-3 py-1 text-[11px] font-semibold border"
                 style={{
-                  background: 'var(--surface-2, #ecfdf5)',
-                  borderColor: 'var(--border, #a7f3d0)',
-                  color: 'var(--accent-2, #047857)',
+                  background: 'var(--surface-2, #fef6dc)',
+                  borderColor: 'var(--border, #f1dca0)',
+                  color: 'var(--accent-2, #854d0e)',
                 }}
               >
                 {pill}
@@ -117,42 +108,42 @@ export default function LandingPage() {
             <MagneticButton
               className="rounded-xl px-6 py-3 text-[14px] font-black text-white shadow-lg"
               style={{
-                background: 'var(--accent, #059669)',
-                boxShadow: '0 4px 14px rgba(5,150,105,0.35)',
+                background: 'var(--accent, #a16207)',
+                boxShadow: '0 4px 14px rgba(161,98,7,0.35)',
                 transition: 'background-color 150ms, transform 100ms',
               }}
-              onMouseEnter={e => (e.currentTarget.style.background = 'var(--accent-2, #047857)')}
-              onMouseLeave={e => (e.currentTarget.style.background = 'var(--accent, #059669)')}
+              onMouseEnter={e => (e.currentTarget.style.background = 'var(--accent-2, #854d0e)')}
+              onMouseLeave={e => (e.currentTarget.style.background = 'var(--accent, #a16207)')}
             >
               Create your first invoice →
             </MagneticButton>
             </Link>
-            <p className="text-[12px] text-slate-400">↗ Try it live on the right — no sign-up needed</p>
+            <p className="text-[12px] text-slate-600">Try it live — no sign-up needed</p>
           </div>
         </div>
 
         {/* Right — inline invoice demo (zero auth) */}
         <div className="flex items-center justify-center lg:justify-end">
-          <div className="w-full max-w-[420px]">
+          <div className="w-full max-w-[520px]">
             <InvoiceDemo />
           </div>
         </div>
       </section>
 
       {/* ── 4-STEP FLOW ── */}
-      <div className="border-y bg-white" style={{ borderColor: '#e2e8f0' }}>
+      <div className="border-y bg-white/70 backdrop-blur" style={{ borderColor: 'var(--border, #f1dca0)' }}>
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-px px-5 sm:grid-cols-4">
           {STEPS.map((s, i) => (
             <div key={s.label} className="flex items-center gap-3 px-4 py-5">
               <span
                 className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[11px] font-black text-white"
-                style={{ background: 'var(--accent, #059669)' }}
+                style={{ background: 'var(--accent, #a16207)' }}
               >
                 {s.n}
               </span>
               <div>
                 <div className="text-[12px] font-bold text-slate-800">{s.label}</div>
-                <div className="text-[10px] text-slate-400">{s.sub}</div>
+                <div className="text-[10px] text-slate-600">{s.sub}</div>
               </div>
               {i < STEPS.length - 1 && (
                 <div className="ml-auto hidden text-slate-300 sm:block">→</div>
@@ -164,17 +155,17 @@ export default function LandingPage() {
 
       <LiveStatsBar />
       <TrendingTopics />
-      <PlanPreview />
+      <div id="pricing"><PlanPreview /></div>
       <DashboardPreview />
 
       {/* ── FOOTER ── */}
-      <footer className="border-t bg-white px-5 py-5 text-center text-[11px] text-slate-400" style={{ borderColor: '#e2e8f0' }}>
+      <footer className="border-t bg-white/70 px-5 py-6 text-center text-[12px] text-slate-600" style={{ borderColor: 'var(--border, #f1dca0)' }}>
         <span className="mr-3 font-black text-slate-900">
-          Invoice<span style={{ color: 'var(--accent, #059669)' }}>Mint</span>
+          Invoice<span style={{ color: 'var(--accent, #a16207)' }}>Mint</span>
         </span>
         © {new Date().getFullYear()} ·{' '}
-        <Link href="/privacy" className="transition-colors hover:text-slate-700">Privacy</Link> ·{' '}
-        <Link href="/terms" className="transition-colors hover:text-slate-700">Terms</Link>
+        <Link href="/privacy" className="tap inline-flex px-2 transition-colors hover:text-slate-900">Privacy</Link> ·{' '}
+        <Link href="/terms" className="tap inline-flex px-2 transition-colors hover:text-slate-900">Terms</Link>
       </footer>
     </div>
   )

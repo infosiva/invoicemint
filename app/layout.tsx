@@ -5,16 +5,19 @@ import FloatingChatWrapper from '@/components/FloatingChatWrapper'
 import BackToTop from '@/components/BackToTop'
 import FeedbackWidget from '@/components/FeedbackWidget'
 import { getSiteFlags } from '@/lib/flags'
+import { loadSiteTheme, buildThemeStyleTag, buildGa4Snippet } from '@/lib/theme-loader'
+import { AnimatedBg } from '@/components/AnimatedBg'
+import ConsentBanner from '@/components/ConsentBanner'
 
 import { MotionProvider } from "@infosiva/shared-ui/modern";
 export const metadata: Metadata = {
   title: 'InvoiceMint — AI Invoice Generator for Freelancers | Get Paid Faster',
-  description: 'Create professional invoices in seconds with AI. Lock scope, track milestones, accept Stripe payments. No disputes. Free for freelancers.',
+  description: 'Create professional invoices in seconds with AI. Lock scope, track milestones, accept Stripe payments. Free to start.',
   keywords: 'AI invoice generator, freelancer invoicing, get paid faster, invoice software, milestone tracking, freelance billing, invoice automation',
   metadataBase: new URL('https://invoicemint.cloud'),
   openGraph: {
     title: 'InvoiceMint — Invoice clients. Get paid on time.',
-    description: 'AI drafts your invoice in seconds. Lock scope, track milestones, accept Stripe payments — no disputes.',
+    description: 'AI drafts your invoice in seconds. Lock scope, track milestones, accept Stripe payments.',
     url: 'https://invoicemint.cloud',
     siteName: 'InvoiceMint',
     type: 'website',
@@ -34,7 +37,7 @@ const jsonLd = {
   '@type': 'SoftwareApplication',
   name: 'InvoiceMint',
   applicationCategory: 'BusinessApplication',
-  description: 'AI invoice generator for freelancers — scope locking, milestone tracking, and Stripe payments.',
+  description: 'AI invoice generator for freelancers: scope sign-off, milestone tracking, and Stripe payment pages.',
   url: 'https://invoicemint.cloud',
   offers: [
     { '@type': 'Offer', price: '0', priceCurrency: 'USD', name: 'Free' },
@@ -45,15 +48,17 @@ const jsonLd = {
     'Scope agreement with client sign-off',
     'Milestone tracking with proof uploads',
     'Stripe payment links',
-    'WhatsApp notifications',
-    'Dispute evidence trail',
+    'Deal message thread',
   ],
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const flags = await getSiteFlags('invoicemint')
+  const theme = await loadSiteTheme('invoicemint')
+  const themeCss = buildThemeStyleTag(theme)
+  const ga4 = buildGa4Snippet(theme)
   return (
-    <html lang="en">
+    <html lang="en" data-layout={theme?.layout?.archetype ?? 'tool-first-workbench'}>
       <head>
         <meta name="google-adsense-account" content="ca-pub-4237294630161176" />
         <script
@@ -65,13 +70,22 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {themeCss ? <style dangerouslySetInnerHTML={{ __html: themeCss }} /> : null}
       </head>
-      <body className="antialiased" style={{ background: 'var(--background, #f8fafc)' }}>
+      <body className="antialiased" style={{ background: 'var(--background, #fffbeb)' }}>
+        <AnimatedBg theme={theme} fallback="none" />
         <MotionProvider>{children}</MotionProvider>
         {flags.chatbot && <FloatingChatWrapper />}
-        <FeedbackWidget siteName="InvoiceMint" />
+        <FeedbackWidget siteName="InvoiceMint" accentColor="#a16207" accentColor2="#854d0e" position="left" />
         <Script defer data-site="invoicemint.cloud" src="http://31.97.56.148:3098/t.js" strategy="afterInteractive" />
-        <BackToTop accentColor="#059669" />
+        <BackToTop accentColor="#a16207" />
+        {ga4 && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${theme?.analytics?.ga4Id}`} strategy="afterInteractive" />
+            <Script id="ga4-init" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: ga4 }} />
+          </>
+        )}
+        <ConsentBanner />
       </body>
     </html>
   )
