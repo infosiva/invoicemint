@@ -1,3 +1,4 @@
+import { sanitizeUserInput } from '@/lib/guard'
 import { NextRequest, NextResponse } from 'next/server'
 import { CHAT_LIMITER } from '@/lib/rateLimit'
 
@@ -16,6 +17,7 @@ export async function POST(req: NextRequest) {
   const limited = CHAT_LIMITER.check(req); if (limited) return limited
   try {
     const { messages } = await req.json()
+    for (const m of Array.isArray(messages) ? messages : []) if (m && typeof m.content === 'string') m.content = sanitizeUserInput(m.content).text
     const history: Msg[] = Array.isArray(messages) ? messages.slice(-12).map((m: Msg) => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: String(m.content).slice(0, 2000) })) : []
     for (const p of OPENAI_COMPAT) {
       const key = process.env[p.key]
