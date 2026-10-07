@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { Logo } from '@/components/Logo'
 import InvoiceDemo from '@/components/InvoiceDemo'
 import LiveStatsBar from '@/components/LiveStatsBar'
 import PlanPreview from '@/components/PlanPreview'
@@ -33,10 +34,7 @@ export default function LandingPage() {
         }}
       >
         <Link href="/" aria-label="InvoiceMint home" className="tap flex items-center gap-2">
-          <img src="/icon.svg" alt="" width={28} height={28} className="h-7 w-7 rounded-lg" />
-          <span className="text-[17px] font-black tracking-tight text-slate-900">
-            Invoice<span style={{ color: 'var(--accent, #a16207)' }}>Mint</span>
-          </span>
+          <Logo />
         </Link>
         <div className="flex items-center gap-3">
           <a href="#pricing" className="tap hidden text-[13px] text-slate-600 transition-colors hover:text-slate-900 sm:inline-flex">
