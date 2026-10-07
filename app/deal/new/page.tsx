@@ -37,7 +37,7 @@ export default function NewDealPage() {
       <nav className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur border-b border-slate-800">
         <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
           <Link href="/dashboard" className="text-lg font-black tracking-tight">
-            Deal<span className="text-violet-400">Flow</span>
+            Deal<span className="text-amber-400">Flow</span>
           </Link>
           <Link href="/dashboard" className="text-slate-400 hover:text-white text-sm transition-colors">
             ← Back to dashboard
@@ -60,7 +60,7 @@ export default function NewDealPage() {
               onChange={e => setTitle(e.target.value)}
               required
               placeholder="e.g. Website redesign for Acme Corp"
-              className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500 text-sm"
+              className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"
             />
           </div>
 
@@ -73,7 +73,7 @@ export default function NewDealPage() {
               onChange={e => setBrief(e.target.value)}
               rows={5}
               placeholder="Describe what you'll deliver, what's included, any constraints or timeline..."
-              className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500 text-sm resize-none"
+              className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm resize-none"
             />
             <p className="text-slate-500 text-xs mt-1">AI will use this to draft scope line items.</p>
           </div>
@@ -87,7 +87,7 @@ export default function NewDealPage() {
               value={clientEmail}
               onChange={e => setClientEmail(e.target.value)}
               placeholder="client@company.com"
-              className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500 text-sm"
+              className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"
             />
             <p className="text-slate-500 text-xs mt-1">Leave blank to start as draft. Client gets an invite link.</p>
           </div>
@@ -98,7 +98,7 @@ export default function NewDealPage() {
             <button
               type="submit"
               disabled={loading || !title.trim()}
-              className="flex-1 bg-violet-600 hover:bg-violet-700 disabled:opacity-50 text-white font-semibold py-3 rounded-xl transition-colors text-sm"
+              className="flex-1 bg-[#a16207] hover:bg-[#854d0e] disabled:opacity-50 text-white font-semibold py-3 rounded-xl transition-colors text-sm"
             >
               {loading ? 'Creating…' : 'Create deal →'}
             </button>

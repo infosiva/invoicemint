@@ -5,7 +5,7 @@ export const metadata = { title: 'Terms of Service — InvoiceMint' }
 export default function TermsPage() {
   return (
     <div className="mx-auto max-w-2xl px-5 py-16 text-slate-700">
-      <Link href="/" className="mb-8 inline-block text-[13px] font-semibold" style={{ color: 'var(--accent, #059669)' }}>
+      <Link href="/" className="mb-8 inline-block text-[13px] font-semibold" style={{ color: 'var(--accent, #a16207)' }}>
         ← Back to InvoiceMint
       </Link>
       <h1 className="mb-4 text-[28px] font-black text-slate-900">Terms of Service</h1>

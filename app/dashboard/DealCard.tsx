@@ -17,7 +17,7 @@ const STATUS_COLORS: Record<string, string> = {
   DRAFT: 'bg-slate-700 text-slate-300',
   PENDING_CLIENT: 'bg-yellow-900/40 text-yellow-300',
   SCOPE_AGREED: 'bg-blue-900/40 text-blue-300',
-  IN_PROGRESS: 'bg-violet-900/40 text-violet-300',
+  IN_PROGRESS: 'bg-amber-900/40 text-amber-300',
   INVOICED: 'bg-orange-900/40 text-orange-300',
   PAID: 'bg-green-900/40 text-green-300',
   DISPUTED: 'bg-red-900/40 text-red-300',
@@ -74,7 +74,7 @@ export default function DealCard({ deal }: DealCardProps) {
   }
 
   return (
-    <div className="bg-slate-900 border border-slate-800 hover:border-violet-800/60 rounded-2xl p-5 transition-colors">
+    <div className="bg-slate-900 border border-slate-800 hover:border-amber-800/60 rounded-2xl p-5 transition-colors">
       <div className="flex items-start justify-between gap-4">
         <Link href={`/deal/${deal.id}`} className="flex-1 min-w-0">
           <h3 className="font-bold text-white truncate">{deal.title}</h3>
@@ -90,7 +90,7 @@ export default function DealCard({ deal }: DealCardProps) {
             value={status}
             onChange={e => handleStatusChange(e.target.value)}
             onBlur={() => setEditing(false)}
-            className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 border border-violet-600 text-white focus:outline-none cursor-pointer flex-shrink-0"
+            className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 border border-amber-600 text-white focus:outline-none cursor-pointer flex-shrink-0"
           >
             {Object.entries(STATUS_LABELS).map(([val, label]) => (
               <option key={val} value={val}>{label}</option>

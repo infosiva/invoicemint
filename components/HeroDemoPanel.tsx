@@ -7,13 +7,13 @@ const STEPS = [
   {
     label: 'AI Proposal',
     icon: '🤖',
-    color: 'from-violet-500/20 to-violet-600/10',
-    border: 'border-violet-500/30',
+    color: 'from-amber-500/20 to-amber-600/10',
+    border: 'border-amber-500/30',
     content: (
       <div className="space-y-2">
         <div className="flex items-center gap-2 mb-3">
-          <div className="w-2 h-2 rounded-full bg-violet-400 animate-pulse" />
-          <span className="text-violet-300 text-[11px] font-bold uppercase tracking-wider">Generating proposal…</span>
+          <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+          <span className="text-amber-300 text-[11px] font-bold uppercase tracking-wider">Generating proposal…</span>
         </div>
         {['Brand identity refresh', 'Logo design × 3 concepts', 'Style guide document', 'Revision rounds × 2'].map((item, i) => (
           <motion.div
@@ -24,7 +24,7 @@ const STEPS = [
             className="flex items-center justify-between bg-white/[0.04] rounded-lg px-3 py-2"
           >
             <span className="text-white/70 text-[11px]">{item}</span>
-            <span className="text-violet-300 text-[11px] font-bold">
+            <span className="text-amber-300 text-[11px] font-bold">
               {['$800', '$1,200', '$400', 'incl.'][i]}
             </span>
           </motion.div>
@@ -39,14 +39,14 @@ const STEPS = [
   {
     label: 'Client Signs',
     icon: '✍️',
-    color: 'from-emerald-500/20 to-emerald-600/10',
-    border: 'border-emerald-500/30',
+    color: 'from-amber-500/20 to-amber-600/10',
+    border: 'border-amber-500/30',
     content: (
       <div className="space-y-3">
-        <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-3 py-2.5 flex items-center gap-2">
-          <span className="text-emerald-400 text-lg">✅</span>
+        <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg px-3 py-2.5 flex items-center gap-2">
+          <span className="text-amber-400 text-lg">✅</span>
           <div>
-            <p className="text-emerald-300 text-[11px] font-bold">Scope signed by client</p>
+            <p className="text-amber-300 text-[11px] font-bold">Scope signed by client</p>
             <p className="text-white/40 text-[10px]">sarah@acme.com · just now</p>
           </div>
         </div>
@@ -55,7 +55,7 @@ const STEPS = [
         </div>
         <div className="flex gap-2">
           {['Scope locked', 'Both parties signed', 'Legally binding'].map(t => (
-            <span key={t} className="text-[10px] px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/20">{t}</span>
+            <span key={t} className="text-[10px] px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded-full border border-amber-500/20">{t}</span>
           ))}
         </div>
       </div>
@@ -76,7 +76,7 @@ const STEPS = [
           <div key={m.name} className="bg-white/[0.03] rounded-lg px-3 py-2.5 border border-white/[0.06]">
             <div className="flex justify-between mb-1.5">
               <span className="text-white/70 text-[11px]">{m.name}</span>
-              <span className={`text-[10px] font-bold ${m.status === 'approved' ? 'text-emerald-400' : m.status === 'pending' ? 'text-amber-400' : 'text-white/30'}`}>
+              <span className={`text-[10px] font-bold ${m.status === 'approved' ? 'text-amber-400' : m.status === 'pending' ? 'text-amber-400' : 'text-white/30'}`}>
                 {m.status}
               </span>
             </div>
@@ -112,7 +112,7 @@ const STEPS = [
         <div className="flex gap-2">
           <div className="flex-1 bg-white/[0.03] rounded-lg px-3 py-2 border border-white/[0.06] text-center">
             <p className="text-white/40 text-[10px]">Deal status</p>
-            <p className="text-emerald-400 text-[11px] font-bold">Complete</p>
+            <p className="text-amber-400 text-[11px] font-bold">Complete</p>
           </div>
           <div className="flex-1 bg-white/[0.03] rounded-lg px-3 py-2 border border-white/[0.06] text-center">
             <p className="text-white/40 text-[10px]">WhatsApp</p>
@@ -173,7 +173,7 @@ export default function HeroDemoPanel() {
         {STEPS.map((_, i) => (
           <div
             key={i}
-            className={`h-1 rounded-full transition-all duration-300 ${i === active ? 'w-6 bg-violet-400' : 'w-1.5 bg-white/20'}`}
+            className={`h-1 rounded-full transition-all duration-300 ${i === active ? 'w-6 bg-amber-400' : 'w-1.5 bg-white/20'}`}
           />
         ))}
       </div>

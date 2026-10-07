@@ -23,14 +23,14 @@ export default function LiveStatsBar() {
   ].filter(i => i.value > 0)
 
   return (
-    <div className="border-y py-3 px-5" style={{ background: 'var(--surface-2, #ecfdf5)', borderColor: 'var(--border, #a7f3d0)' }}>
+    <div className="border-y py-3 px-5" style={{ background: 'var(--surface-2, #fef6dc)', borderColor: 'var(--border, #f1dca0)' }}>
       <div className="mx-auto flex max-w-6xl items-center justify-center gap-8 flex-wrap">
         {items.map(item => (
           <div key={item.label} className="flex items-center gap-2">
-            <span className="text-[18px] font-black tabular-nums" style={{ color: 'var(--accent, #059669)' }}>
+            <span className="text-[18px] font-black tabular-nums" style={{ color: 'var(--accent, #a16207)' }}>
               {item.value.toLocaleString()}
             </span>
-            <span className="text-[11px] text-slate-500">{item.label} this session</span>
+            <span className="text-[11px] text-slate-600">{item.label} this session</span>
           </div>
         ))}
       </div>

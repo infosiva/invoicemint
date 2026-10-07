@@ -67,7 +67,7 @@ export default function SendSheet({ invoice, onBack }: Props) {
   }
 
   const inputClass =
-    'bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white w-full focus:outline-none focus:ring-2 focus:ring-violet-500'
+    'bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white w-full focus:outline-none focus:ring-2 focus:ring-amber-500'
   const labelClass = 'block text-sm font-medium text-slate-300 mb-1'
   const noteClass = 'text-xs text-slate-500 mt-1'
 
@@ -113,7 +113,7 @@ export default function SendSheet({ invoice, onBack }: Props) {
           <button
             onClick={handleGenerate}
             disabled={uiState === 'loading'}
-            className="w-full bg-violet-600 hover:bg-violet-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-colors"
+            className="w-full bg-[#a16207] hover:bg-[#854d0e] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-colors"
           >
             {uiState === 'loading' ? 'Generating…' : 'Generate Payment Link →'}
           </button>
@@ -145,7 +145,7 @@ export default function SendSheet({ invoice, onBack }: Props) {
           </button>
 
           <p className="text-xs text-slate-500 text-center">
-            <a href="/register" className="hover:text-violet-400 transition-colors underline underline-offset-2">
+            <a href="/login" className="hover:text-amber-400 transition-colors underline underline-offset-2">
               Track when it&apos;s paid — create free account →
             </a>
           </p>

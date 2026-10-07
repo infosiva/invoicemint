@@ -18,7 +18,7 @@ const STATUS_COLORS: Record<string, string> = {
   DRAFT: 'bg-slate-700 text-slate-300',
   PENDING_CLIENT: 'bg-yellow-900/40 text-yellow-300',
   SCOPE_AGREED: 'bg-blue-900/40 text-blue-300',
-  IN_PROGRESS: 'bg-violet-900/40 text-violet-300',
+  IN_PROGRESS: 'bg-amber-900/40 text-amber-300',
   INVOICED: 'bg-orange-900/40 text-orange-300',
   PAID: 'bg-green-900/40 text-green-300',
   DISPUTED: 'bg-red-900/40 text-red-300',
@@ -49,7 +49,7 @@ export default async function DealLayout({
       <nav className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur border-b border-slate-800">
         <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
           <Link href="/dashboard" className="text-lg font-black tracking-tight">
-            Deal<span className="text-violet-400">Flow</span>
+            Invoice<span className="text-amber-400">Mint</span>
           </Link>
           <span className="text-slate-400 text-sm">{user.email}</span>
         </div>

@@ -46,7 +46,7 @@ export default async function ClientPortalPage({
         <div className="space-y-2">
           <p className="text-sm text-slate-400">{vendorName}</p>
           <h1 className="text-3xl font-bold text-white">{deal.title}</h1>
-          <p className="text-2xl font-semibold text-violet-400">${fmt(deal.totalAmount)}</p>
+          <p className="text-2xl font-semibold text-amber-400">${fmt(deal.totalAmount)}</p>
           {firstDueDate && (
             <p className="text-sm text-slate-400">
               Due {new Date(firstDueDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
@@ -116,7 +116,7 @@ export default async function ClientPortalPage({
             <p className="text-slate-400">This deal has been cancelled.</p>
           </div>
         ) : showCTA ? (
-          <div className="bg-slate-900 border border-violet-500/30 rounded-2xl p-6">
+          <div className="bg-slate-900 border border-amber-500/30 rounded-2xl p-6">
             <ClientPayment
               dealId={deal.id}
               token={token}

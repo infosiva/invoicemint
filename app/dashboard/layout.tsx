@@ -11,13 +11,13 @@ export default async function DashboardLayout({ children }: { children: React.Re
       <nav className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur border-b border-slate-800">
         <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
           <Link href="/dashboard" className="text-lg font-black tracking-tight">
-            Deal<span className="text-violet-400">Flow</span>
+            Invoice<span className="text-amber-400">Mint</span>
           </Link>
           <div className="flex items-center gap-3">
             <Link href="/create" className="text-slate-400 hover:text-white text-sm font-medium transition-colors hidden sm:block">
               Create Invoice
             </Link>
-            <Link href="/upgrade" className="text-violet-400 hover:text-violet-300 text-sm font-semibold transition-colors">
+            <Link href="/upgrade" className="text-amber-400 hover:text-amber-300 text-sm font-semibold transition-colors">
               Upgrade ✦
             </Link>
             <span className="text-slate-500 text-sm hidden md:block">{user.email}</span>

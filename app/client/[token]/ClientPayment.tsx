@@ -41,7 +41,7 @@ function CheckoutForm({ token, amount }: { token: string; amount: number }) {
       <button
         type="submit"
         disabled={!stripe || paying}
-        className="w-full bg-violet-600 hover:bg-violet-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3 rounded-xl transition-colors"
+        className="w-full bg-[#a16207] hover:bg-[#854d0e] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3 rounded-xl transition-colors"
       >
         {paying ? 'Paying…' : `Pay $${(amount / 100).toFixed(2)}`}
       </button>
@@ -87,7 +87,7 @@ export default function ClientPayment({ dealId, token, amount, depositLabel }: P
       <button
         onClick={handleApprove}
         disabled={loading}
-        className="w-full bg-violet-600 hover:bg-violet-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl text-lg transition-colors"
+        className="w-full bg-[#a16207] hover:bg-[#854d0e] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl text-lg transition-colors"
       >
         {loading ? 'Processing…' : `${depositLabel} $${(amount / 100).toFixed(2)} →`}
       </button>

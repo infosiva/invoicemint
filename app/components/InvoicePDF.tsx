@@ -89,7 +89,7 @@ export default function InvoicePDF({
   yourName, yourCompany, yourEmail, yourPhone,
   clientName, clientCompany,
   service, amount, generatedText, issueDate,
-  logoUrl, accentColor = "#10b981", footerNote,
+  logoUrl, accentColor = "#ca8a04", footerNote,
 }: InvoicePDFProps) {
   const isQuote = docType === "quote";
   const label = isQuote ? "QUOTE" : "INVOICE";

@@ -85,14 +85,14 @@ export default async function DashboardPage() {
           {atFreeLimit ? (
             <Link
               href="/upgrade"
-              className="bg-violet-600 hover:bg-violet-700 text-white font-semibold px-5 py-2.5 rounded-xl transition-colors text-sm"
+              className="bg-[#a16207] hover:bg-[#854d0e] text-white font-semibold px-5 py-2.5 rounded-xl transition-colors text-sm"
             >
               Upgrade for more →
             </Link>
           ) : (
             <Link
               href="/deal/new"
-              className="bg-violet-600 hover:bg-violet-700 text-white font-semibold px-5 py-2.5 rounded-xl transition-colors text-sm"
+              className="bg-[#a16207] hover:bg-[#854d0e] text-white font-semibold px-5 py-2.5 rounded-xl transition-colors text-sm"
             >
               + New deal
             </Link>
@@ -105,12 +105,12 @@ export default async function DashboardPage() {
 
       {/* Free plan limit banner */}
       {atFreeLimit && (
-        <div className="bg-violet-900/30 border border-violet-700/50 rounded-2xl p-4 mb-6 flex items-center justify-between gap-4">
+        <div className="bg-amber-900/30 border border-amber-700/50 rounded-2xl p-4 mb-6 flex items-center justify-between gap-4">
           <div>
-            <p className="text-violet-300 font-semibold text-sm">Free plan limit reached</p>
-            <p className="text-violet-400/70 text-xs mt-0.5">You&apos;ve used all 3 free deals. Upgrade to Pro for unlimited deals.</p>
+            <p className="text-amber-300 font-semibold text-sm">Free plan limit reached</p>
+            <p className="text-amber-400/70 text-xs mt-0.5">You&apos;ve used all 3 free deals. Upgrade to Pro for unlimited deals.</p>
           </div>
-          <Link href="/upgrade" className="bg-violet-600 hover:bg-violet-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors flex-shrink-0">
+          <Link href="/upgrade" className="bg-[#a16207] hover:bg-[#854d0e] text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors flex-shrink-0">
             Upgrade $12/mo →
           </Link>
         </div>
@@ -153,7 +153,7 @@ export default async function DashboardPage() {
           <p className="text-[13px] text-white/40 font-medium">
             ✨ Tip: Use voice input to create invoices 3x faster
           </p>
-          <Link href="/generate" className="ml-auto flex-shrink-0 text-[11px] font-semibold text-violet-400 hover:text-violet-300 transition-colors">
+          <Link href="/generate" className="ml-auto flex-shrink-0 text-[11px] font-semibold text-amber-400 hover:text-amber-300 transition-colors">
             Try it →
           </Link>
         </div>
@@ -189,7 +189,7 @@ export default async function DashboardPage() {
         {/* 3. Active deals */}
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
           <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Active</p>
-          <p className="text-3xl font-black text-violet-400">{stats.active}</p>
+          <p className="text-3xl font-black text-amber-400">{stats.active}</p>
           <p className="text-slate-500 text-xs mt-1.5">in progress</p>
         </div>
         {/* 4. Total deals */}
@@ -204,7 +204,7 @@ export default async function DashboardPage() {
       {deals.length === 0 ? (
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center">
           <p className="text-slate-400 mb-4">No deals yet.</p>
-          <Link href="/deal/new" className="text-violet-400 hover:underline text-sm">Create your first deal →</Link>
+          <Link href="/deal/new" className="text-amber-400 hover:underline text-sm">Create your first deal →</Link>
         </div>
       ) : (
         <div className="space-y-3">

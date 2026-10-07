@@ -27,22 +27,22 @@ export default function LoginPage() {
       <div style={{ width: '100%', maxWidth: '380px' }}>
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 44, height: 44, borderRadius: 12, background: '#059669', marginBottom: 12 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 44, height: 44, borderRadius: 12, background: '#a16207', marginBottom: 12 }}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
             </svg>
           </div>
           <div style={{ fontSize: '22px', fontWeight: 800, color: '#0f172a', letterSpacing: '-0.5px' }}>
-            Deal<span style={{ color: '#059669' }}>Flow</span>
+            Deal<span style={{ color: '#a16207' }}>Flow</span>
           </div>
           <p style={{ color: '#64748b', fontSize: '13px', marginTop: 4 }}>No password. No spam. Just a link.</p>
         </div>
 
         {sent ? (
           <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 16, padding: '32px', boxShadow: '0 4px 24px rgba(0,0,0,.06)', textAlign: 'center' }}>
-            <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(5,150,105,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
+            <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(161,98,7,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
               <svg width="20" height="20" viewBox="0 0 15 15" fill="none">
-                <path d="M1 7.5L5.5 12 14 3" stroke="#059669" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M1 7.5L5.5 12 14 3" stroke="#a16207" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
             <p style={{ fontWeight: 600, fontSize: '15px', color: '#0f172a', marginBottom: 4 }}>Check your inbox</p>
@@ -60,7 +60,7 @@ export default function LoginPage() {
                   required
                   placeholder="you@company.com"
                   style={{ width: '100%', padding: '10px 14px', fontSize: '14px', border: '1px solid #e2e8f0', borderRadius: 10, outline: 'none', color: '#0f172a', background: '#fff', boxSizing: 'border-box', transition: 'border-color 160ms ease' }}
-                  onFocus={e => (e.target.style.borderColor = '#059669')}
+                  onFocus={e => (e.target.style.borderColor = '#a16207')}
                   onBlur={e => (e.target.style.borderColor = '#e2e8f0')}
                 />
               </div>
@@ -68,9 +68,9 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                style={{ width: '100%', padding: '11px', background: loading ? '#a7f3d0' : '#059669', color: '#fff', border: 'none', borderRadius: 10, fontSize: '14px', fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', transition: 'background 160ms ease, transform 100ms ease' }}
-                onMouseEnter={e => { if (!loading) (e.currentTarget.style.background = '#047857') }}
-                onMouseLeave={e => { if (!loading) (e.currentTarget.style.background = '#059669') }}
+                style={{ width: '100%', padding: '11px', background: loading ? '#f1dca0' : '#a16207', color: '#fff', border: 'none', borderRadius: 10, fontSize: '14px', fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', transition: 'background 160ms ease, transform 100ms ease' }}
+                onMouseEnter={e => { if (!loading) (e.currentTarget.style.background = '#854d0e') }}
+                onMouseLeave={e => { if (!loading) (e.currentTarget.style.background = '#a16207') }}
                 onMouseDown={e => (e.currentTarget.style.transform = 'scale(0.97)')}
                 onMouseUp={e => (e.currentTarget.style.transform = 'scale(1)')}
               >

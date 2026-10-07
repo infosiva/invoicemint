@@ -54,7 +54,7 @@ export default function CreatePage() {
         </p>
         <VoiceInput onTranscript={handleTranscript} onParsing={setParsing} />
         {parsing && (
-          <p className="text-violet-400 animate-pulse mt-4">
+          <p className="text-amber-400 animate-pulse mt-4">
             Parsing your invoice...
           </p>
         )}
@@ -81,7 +81,7 @@ export default function CreatePage() {
               </button>
               <button
                 onClick={() => setStage('send')}
-                className="flex-1 px-4 py-2 rounded-lg bg-violet-600 hover:bg-violet-500 text-white font-semibold transition-colors"
+                className="flex-1 px-4 py-2 rounded-lg bg-[#a16207] hover:bg-[#854d0e] text-white font-semibold transition-colors"
               >
                 Send →
               </button>

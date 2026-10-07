@@ -28,7 +28,7 @@ export default async function ScopePage({ params }: { params: Promise<{ id: stri
           <p className="text-slate-400 text-sm mt-0.5">Line items both parties agree to</p>
         </div>
         {isVendor && deal.status === 'DRAFT' && (
-          <button className="bg-violet-600 hover:bg-violet-700 text-white font-semibold px-4 py-2 rounded-xl text-sm transition-colors">
+          <button className="bg-[#a16207] hover:bg-[#854d0e] text-white font-semibold px-4 py-2 rounded-xl text-sm transition-colors">
             + Add item
           </button>
         )}

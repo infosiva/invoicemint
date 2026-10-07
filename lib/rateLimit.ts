@@ -34,3 +34,4 @@ function makeLimiter(max: number, windowMs: number) {
 }
 
 export const AI_LIMITER = makeLimiter(10, 60_000) // 10 req/min
+export const CHAT_LIMITER = makeLimiter(60, 3_600_000) // 60 req/hr/IP

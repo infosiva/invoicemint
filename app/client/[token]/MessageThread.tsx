@@ -64,7 +64,7 @@ export default function MessageThread({ dealId, token, messages: initial }: Prop
               {messages.map((m) => (
                 <div key={m.id} className="bg-slate-800 rounded-lg px-4 py-3">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-medium text-violet-400">
+                    <span className="text-xs font-medium text-amber-400">
                       {m.author.email.split('@')[0]}
                     </span>
                     <span className="text-xs text-slate-500">
@@ -86,12 +86,12 @@ export default function MessageThread({ dealId, token, messages: initial }: Prop
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
               placeholder="Ask a question…"
-              className="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-500"
+              className="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
             />
             <button
               onClick={handleSend}
               disabled={sending || !draft.trim()}
-              className="px-4 py-2 bg-violet-600 hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg transition-colors"
+              className="px-4 py-2 bg-[#a16207] hover:bg-[#854d0e] disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg transition-colors"
             >
               {sending ? '…' : 'Send'}
             </button>

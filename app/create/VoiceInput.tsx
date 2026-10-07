@@ -68,7 +68,7 @@ export default function VoiceInput({ onTranscript, onParsing }: Props) {
           className={`w-24 h-24 rounded-full flex items-center justify-center transition-all duration-200 shadow-lg ${
             listening
               ? 'bg-red-500 hover:bg-red-600 animate-pulse shadow-red-500/40'
-              : 'bg-violet-600 hover:bg-violet-700 shadow-violet-500/30'
+              : 'bg-[#a16207] hover:bg-[#854d0e] shadow-amber-500/30'
           }`}
           aria-label={listening ? 'Stop listening' : 'Start voice input'}
         >
@@ -93,7 +93,7 @@ export default function VoiceInput({ onTranscript, onParsing }: Props) {
           onKeyDown={e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); handleSubmit() } }}
           placeholder={'Try: "Charge Sarah $2,500 for logo design, 3 revisions, due in 2 weeks"'}
           rows={3}
-          className="w-full bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-white text-sm placeholder-slate-500 resize-none focus:outline-none focus:border-violet-500 transition-colors"
+          className="w-full bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 text-white text-sm placeholder-slate-500 resize-none focus:outline-none focus:border-amber-500 transition-colors"
         />
         <p className="absolute bottom-3 right-4 text-slate-600 text-xs">⌘↵ to parse</p>
       </div>
@@ -101,7 +101,7 @@ export default function VoiceInput({ onTranscript, onParsing }: Props) {
       <button
         onClick={handleSubmit}
         disabled={!text.trim()}
-        className="w-full bg-violet-600 hover:bg-violet-700 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold py-3 rounded-2xl transition-colors text-sm"
+        className="w-full bg-[#a16207] hover:bg-[#854d0e] disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold py-3 rounded-2xl transition-colors text-sm"
       >
         Parse Invoice →
       </button>

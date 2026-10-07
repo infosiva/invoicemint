@@ -52,9 +52,9 @@ export default function InvoiceDemo() {
   }
 
   return (
-    <div className="w-full rounded-2xl bg-white p-5 shadow-xl shadow-slate-200/60" style={{ border: '1px solid var(--border, #a7f3d0)' }}>
+    <div className="w-full rounded-2xl bg-white p-5 shadow-xl shadow-slate-200/60" style={{ border: '1px solid var(--border, #f1dca0)' }}>
       <div className="mb-4 flex items-center gap-2">
-        <span className="h-1.5 w-1.5 rounded-full" style={{ background: 'var(--accent, #059669)' }} />
+        <span className="h-1.5 w-1.5 rounded-full" style={{ background: 'var(--accent, #a16207)' }} />
         <span className="text-[11px] font-black uppercase tracking-widest text-slate-400">
           Try it — no sign-up needed
         </span>
@@ -72,7 +72,7 @@ export default function InvoiceDemo() {
                 placeholder="Your name"
                 value={from}
                 onChange={e => setFrom(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-[13px] text-slate-800 outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-200 transition-colors duration-150"
+                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-[13px] text-slate-800 outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-200 transition-colors duration-150"
               />
             </div>
             <div>
@@ -84,7 +84,7 @@ export default function InvoiceDemo() {
                 placeholder="Client name"
                 value={to}
                 onChange={e => setTo(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-[13px] text-slate-800 outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-200 transition-colors duration-150"
+                className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-[13px] text-slate-800 outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-200 transition-colors duration-150"
               />
             </div>
           </div>
@@ -97,7 +97,7 @@ export default function InvoiceDemo() {
               placeholder="e.g. Logo design, 3 concepts"
               value={item}
               onChange={e => setItem(e.target.value)}
-              className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-[13px] text-slate-800 outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-200 transition-colors duration-150"
+              className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-[13px] text-slate-800 outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-200 transition-colors duration-150"
             />
           </div>
           <div>
@@ -111,7 +111,7 @@ export default function InvoiceDemo() {
               step="0.01"
               value={amount}
               onChange={e => setAmount(e.target.value)}
-              className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-[13px] text-slate-800 outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-200 transition-colors duration-150"
+              className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-[13px] text-slate-800 outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-200 transition-colors duration-150"
             />
           </div>
           {error && <p className="text-[11px] text-red-500">{error}</p>}
@@ -119,7 +119,7 @@ export default function InvoiceDemo() {
             type="submit"
             disabled={loading}
             className="w-full rounded-xl py-2.5 text-[13px] font-black text-white active:scale-[0.97] disabled:opacity-60"
-            style={{ background: 'var(--accent, #059669)', transition: 'background-color 150ms, transform 100ms' }}
+            style={{ background: 'var(--accent, #a16207)', transition: 'background-color 150ms, transform 100ms' }}
           >
             {loading ? 'Generating…' : 'Preview invoice →'}
           </button>
@@ -130,7 +130,7 @@ export default function InvoiceDemo() {
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
             <div className="mb-3 flex items-start justify-between">
               <div>
-                <div className="text-[16px] font-black" style={{ color: 'var(--accent, #059669)' }}>Invoice<span className="text-slate-800">Mint</span></div>
+                <div className="text-[16px] font-black" style={{ color: 'var(--accent, #a16207)' }}>Invoice<span className="text-slate-800">Mint</span></div>
                 <div className="mt-0.5 text-[10px] text-slate-400">#{invoice.invoiceNumber}</div>
               </div>
               <div className="text-right">
@@ -163,7 +163,7 @@ export default function InvoiceDemo() {
                   </span>
                 </div>
               ))}
-              <div className="flex items-center justify-between rounded-b-lg px-3 py-2" style={{ background: 'var(--accent, #059669)' }}>
+              <div className="flex items-center justify-between rounded-b-lg px-3 py-2" style={{ background: 'var(--accent, #a16207)' }}>
                 <span className="text-[11px] font-semibold" style={{ color: 'rgba(209,250,229,0.9)' }}>Total</span>
                 <span className="text-[15px] font-black text-white">
                   ${invoice.total.toLocaleString('en-US', { minimumFractionDigits: 2 })}
@@ -183,7 +183,7 @@ export default function InvoiceDemo() {
             <Link
               href="/login"
               className="block w-full rounded-xl py-2.5 text-center text-[13px] font-black text-white active:scale-[0.97]"
-              style={{ background: 'var(--accent, #059669)', transition: 'background-color 150ms, transform 100ms' }}
+              style={{ background: 'var(--accent, #a16207)', transition: 'background-color 150ms, transform 100ms' }}
             >
               Save &amp; Export PDF →
             </Link>

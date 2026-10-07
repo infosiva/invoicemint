@@ -46,7 +46,7 @@ const TABS = [
 type Tab = typeof TABS[number]["id"];
 
 const ACCENT_PRESETS = [
-  "#8b5cf6", "#10b981", "#3b82f6", "#f59e0b", "#ef4444", "#ec4899", "#06b6d4",
+  "#8b5cf6", "#ca8a04", "#3b82f6", "#f59e0b", "#ef4444", "#ec4899", "#06b6d4",
 ];
 
 export default function GeneratePage() {
@@ -194,7 +194,7 @@ export default function GeneratePage() {
                 key={t}
                 onClick={() => set("docType", t)}
                 className={`px-3 py-1.5 rounded-md text-xs font-semibold capitalize transition-colors ${
-                  form.docType === t ? "bg-violet-600 text-white" : "text-slate-400 hover:text-white"
+                  form.docType === t ? "bg-[#a16207] text-white" : "text-slate-400 hover:text-white"
                 }`}
               >
                 {t}
@@ -204,7 +204,7 @@ export default function GeneratePage() {
           <button
             onClick={handleGenerate}
             disabled={loading || !form.service || !form.amount}
-            className="bg-violet-600 hover:bg-violet-700 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold px-4 py-2 rounded-xl text-sm transition-colors flex items-center gap-2"
+            className="bg-[#a16207] hover:bg-[#854d0e] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold px-4 py-2 rounded-xl text-sm transition-colors flex items-center gap-2"
           >
             {loading ? (
               <>
@@ -240,7 +240,7 @@ export default function GeneratePage() {
               value={smartFillUrl}
               onChange={e => setSmartFillUrl(e.target.value)}
               onKeyDown={e => e.key === "Enter" && handleSmartFill()}
-              className="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-violet-500"
+              className="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
             />
             <button
               onClick={handleSmartFill}
@@ -259,7 +259,7 @@ export default function GeneratePage() {
                 onClick={() => setTab(t.id)}
                 className={`flex-1 py-2.5 text-xs font-semibold transition-colors ${
                   tab === t.id
-                    ? "text-white border-b-2 border-violet-500 -mb-px"
+                    ? "text-white border-b-2 border-amber-500 -mb-px"
                     : "text-slate-500 hover:text-white"
                 }`}
               >
@@ -463,7 +463,7 @@ export default function GeneratePage() {
                       <div className="w-14 h-3 bg-slate-800 rounded" />
                     </div>
                   </div>
-                  <div className="h-0.5 bg-violet-800 mb-4" />
+                  <div className="h-0.5 bg-amber-800 mb-4" />
                   <div className="flex gap-8 mb-4">
                     <div className="space-y-1.5">
                       <div className="w-8 h-2 bg-slate-700 rounded" />
@@ -480,7 +480,7 @@ export default function GeneratePage() {
                       <div className="w-12 h-2 bg-slate-700 rounded" />
                       <div className="w-28 h-3 bg-slate-600 rounded" />
                     </div>
-                    <div className="w-16 h-5 bg-violet-900 rounded" />
+                    <div className="w-16 h-5 bg-amber-900 rounded" />
                   </div>
                   <div className="space-y-1.5">
                     <div className="w-full h-2 bg-slate-800 rounded" />
@@ -488,7 +488,7 @@ export default function GeneratePage() {
                     <div className="w-3/5 h-2 bg-slate-800 rounded" />
                   </div>
                 </div>
-                <p className="text-slate-500 text-sm">Fill in job details and hit <span className="text-violet-400 font-semibold">Generate</span></p>
+                <p className="text-slate-500 text-sm">Fill in job details and hit <span className="text-amber-400 font-semibold">Generate</span></p>
               </div>
             </div>
           )}
@@ -498,7 +498,7 @@ export default function GeneratePage() {
   );
 }
 
-const inputCls = "w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-violet-500";
+const inputCls = "w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-500";
 
 function Field({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) {
   return (

@@ -1,32 +1,43 @@
 import { NextRequest, NextResponse } from 'next/server'
-import Groq from 'groq-sdk'
-import { AI_LIMITER } from '@/lib/rateLimit'
+import { CHAT_LIMITER } from '@/lib/rateLimit'
 
-let _groq: Groq | null = null
-function groq() { if (!_groq) _groq = new Groq({ apiKey: process.env.GROQ_API_KEY! }); return _groq }
+const SYSTEM = "You are InvoiceAI, the assistant for InvoiceMint. Help freelancers create invoices, set payment terms, chase late payments and use scope sign-off and milestones. Be practical and concise. If asked anything outside invoicing and freelance billing, respond: \"I'm trained for InvoiceMint. For that, try Google or ChatGPT!\""
+const FALLBACK = "I can't reach the assistant right now. Try the invoice generator above, it works without an account."
+
+type Msg = { role: string; content: string }
+// Free-first chain: Groq -> Gemini -> Cerebras. ponytail: sequential tries, no circuit breaker.
+const OPENAI_COMPAT = [
+  { url: 'https://api.groq.com/openai/v1/chat/completions', key: 'GROQ_API_KEY', models: ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant'] },
+  { url: 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', key: 'GEMINI_API_KEY', models: ['gemini-2.0-flash'] },
+  { url: 'https://api.cerebras.ai/v1/chat/completions', key: 'CEREBRAS_API_KEY', models: ['llama-3.3-70b'] },
+]
 
 export async function POST(req: NextRequest) {
-  const limited = AI_LIMITER.check(req); if (limited) return limited
-
+  const limited = CHAT_LIMITER.check(req); if (limited) return limited
   try {
-    const { messages, system } = await req.json()
-    const sysPrompt = system ?? 'You are InvoiceAI — a freelance billing and invoicing expert. Help users create professional invoices, chase late payments, set payment terms, and manage client billing. Be practical and concise.'
-    for (const model of ['qwen/qwen3.8-27b', 'openai/gpt-oss-20b']) {
-      try {
-        const res = await groq().chat.completions.create({
-          model,
-          messages: [{ role: 'system', content: sysPrompt }, ...messages],
-          max_tokens: 400,
-        })
-        const text = res.choices[0]?.message?.content
-        if (text) return NextResponse.json({ text })
-      } catch (err) {
-        console.warn(`[invoicemint][chat] ${model} failed`, err)
+    const { messages } = await req.json()
+    const history: Msg[] = Array.isArray(messages) ? messages.slice(-12).map((m: Msg) => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: String(m.content).slice(0, 2000) })) : []
+    for (const p of OPENAI_COMPAT) {
+      const key = process.env[p.key]
+      if (!key) continue
+      for (const model of p.models) {
+        try {
+          const res = await fetch(p.url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
+            body: JSON.stringify({ model, max_tokens: 400, messages: [{ role: 'system', content: SYSTEM }, ...history] }),
+            signal: AbortSignal.timeout(15000),
+          })
+          if (!res.ok) continue
+          const text = (await res.json()).choices?.[0]?.message?.content
+          if (text) return NextResponse.json({ text })
+        } catch (err) {
+          console.warn(`[invoicemint][chat] ${model} failed`, err)
+        }
       }
     }
-    return NextResponse.json({ text: 'Let me help with your invoicing!' })
   } catch (err) {
     console.error('[invoicemint][chat]', err)
-    return NextResponse.json({ text: 'Create your first invoice above — it\'s free!' }, { status: 200 })
   }
+  return NextResponse.json({ text: FALLBACK })
 }

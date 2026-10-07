@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
+  --background: #fffbeb;
   --foreground: #0f172a;
-  --accent: #059669;
-  --accent-2: #047857;
-  --border: #a7f3d0;
+  --accent: #a16207;
+  --accent-2: #854d0e;
+  --border: #f1dca0;
   --surface-1: #ffffff;
-  --surface-2: #ecfdf5;
-  --primary: #059669;
+  --surface-2: #fef6dc;
+  --primary: #a16207;
 }
 
 @theme inline {
@@ -34,3 +34,37 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .accent-border { border-color: var(--border); }
 .surface-1 { background-color: var(--surface-1); }
 .surface-2 { background-color: var(--surface-2); }
+
+/* ── Workbench aurora background (hub overrides --background/--accent via theme vars) ── */
+.aurora { position: relative; isolation: isolate; background-color: var(--background, #fffbeb); }
+.aurora::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 15% 0%, rgba(202,138,4,0.22), transparent 70%),
+    radial-gradient(50% 45% at 90% 10%, rgba(190,24,93,0.10), transparent 70%),
+    radial-gradient(45% 40% at 60% 60%, rgba(234,179,8,0.14), transparent 70%);
+  background-size: 140% 140%;
+  animation: aurora-drift 18s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift { from { background-position: 0% 0%; } to { background-position: 100% 60%; } }
+.rise { animation: rise 600ms cubic-bezier(0.23,1,0.32,1) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.press { transition: transform 120ms, background-color 150ms; }
+.press:active { transform: scale(0.97); }
+.tap { min-height: 44px; align-items: center; }
+@media (prefers-reduced-motion: reduce) {
+  .aurora::before, .rise { animation: none; }
+  .press { transition: none; }
+}
+
+/* ── Runtime archetype variants: hub layout.archetype -> <html data-layout>. Default archetype has no rule (no visual change). ── */
+[data-layout="weekend-lifestyle"] [class*="card"] { border-radius: 24px; }
+[data-layout="weekend-lifestyle"] :is(.btn-primary,.btn-accent,.btn-glow,button[type="submit"]) { border-radius: 999px; }
+[data-layout="directory-marketplace"] [class*="card"] { border-radius: 10px; }
+[data-layout="travel-magazine"] [class*="card"] { border-radius: 4px; border-width: 2px; }
+[data-layout="travel-magazine"] main h1 { text-align: left; }
+[data-layout="career-portfolio"] [class*="card"] { border-radius: 0; box-shadow: 4px 4px 0 currentColor; }
+[data-layout="compliance-authority"] [class*="card"] { border-radius: 6px; }
+[data-layout="compliance-authority"] main section { padding-block: clamp(2rem, 4vw, 3rem); }
+[data-layout="bento-showcase"] [class*="card"] { border-radius: 20px; }
+@media (prefers-reduced-motion: reduce) { .ds-bg i, .ds-bg.gradient-shift { animation: none !important; } }

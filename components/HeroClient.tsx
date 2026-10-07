@@ -45,7 +45,7 @@ export default function HeroClient({ overrides }: Props) {
           {STEPS.map((s, i) => (
             <div key={s.n} className="flex items-center">
               <div className="flex items-center gap-1.5 px-3 py-1.5">
-                <span className="text-[10px] font-black text-violet-500/50">{s.n}</span>
+                <span className="text-[10px] font-black text-amber-500/50">{s.n}</span>
                 <span className="text-[11px] font-semibold text-white/50 whitespace-nowrap">{s.label}</span>
               </div>
               {i < STEPS.length - 1 && (
@@ -64,9 +64,9 @@ export default function HeroClient({ overrides }: Props) {
             transition={{ duration: 0.35, ease }}
           >
             {/* Badge */}
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-violet-500/25 bg-violet-500/10 px-3.5 py-1.5">
-              <span className="text-violet-400">✦</span>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-violet-300">{tagline}</span>
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-500/25 bg-amber-500/10 px-3.5 py-1.5">
+              <span className="text-amber-400">✦</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-amber-300">{tagline}</span>
             </div>
 
             {/* Headline */}
@@ -74,7 +74,7 @@ export default function HeroClient({ overrides }: Props) {
               {headline.includes('Get paid faster') ? (
                 <>
                   Send invoices in 60 seconds.<br />
-                  <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">Get paid faster.</span>
+                  <span className="bg-gradient-to-r from-amber-400 to-amber-400 bg-clip-text text-transparent">Get paid faster.</span>
                 </>
               ) : headline}
             </h1>
@@ -88,7 +88,7 @@ export default function HeroClient({ overrides }: Props) {
             <div className="flex flex-wrap gap-3 mb-5">
               <Link
                 href="/login"
-                className="inline-flex items-center rounded-xl bg-violet-600 px-6 py-3 text-[13px] font-bold text-white transition-all duration-150 hover:bg-violet-500 active:scale-[0.97]"
+                className="inline-flex items-center rounded-xl bg-[#a16207] px-6 py-3 text-[13px] font-bold text-white transition-all duration-150 hover:bg-[#854d0e] active:scale-[0.97]"
               >
                 {cta}
               </Link>
@@ -105,7 +105,7 @@ export default function HeroClient({ overrides }: Props) {
               {SOCIAL_PROOF.map(p => (
                 <span
                   key={p}
-                  className="rounded-full border border-violet-500/20 bg-violet-500/[0.06] px-3 py-1 text-[11px] font-medium text-violet-300/70"
+                  className="rounded-full border border-amber-500/20 bg-amber-500/[0.06] px-3 py-1 text-[11px] font-medium text-amber-300/70"
                 >
                   {p}
                 </span>
@@ -138,8 +138,8 @@ export default function HeroClient({ overrides }: Props) {
         <div className="mt-8 lg:hidden">
           <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {[
-              { icon: '🤖', label: 'AI Proposal', color: 'border-violet-500/20 bg-violet-500/5', text: 'Describe project. AI writes full scope and line items instantly.' },
-              { icon: '✍️', label: 'Client Signs', color: 'border-emerald-500/20 bg-emerald-500/5', text: 'Share link. Client reviews and signs. Scope locks immediately.' },
+              { icon: '🤖', label: 'AI Proposal', color: 'border-amber-500/20 bg-amber-500/5', text: 'Describe project. AI writes full scope and line items instantly.' },
+              { icon: '✍️', label: 'Client Signs', color: 'border-amber-500/20 bg-amber-500/5', text: 'Share link. Client reviews and signs. Scope locks immediately.' },
               { icon: '🏁', label: 'Proof Upload', color: 'border-blue-500/20 bg-blue-500/5', text: 'Upload milestone deliverable. Client approves. Invoice unlocks.' },
               { icon: '💳', label: 'Paid via Stripe', color: 'border-amber-500/20 bg-amber-500/5', text: 'Auto-invoice from milestones. Client pays in browser. Instant.' },
             ].map(c => (

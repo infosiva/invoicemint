@@ -18,7 +18,7 @@ export default function TrendingTopics() {
 
   return (
     <section className="mx-auto max-w-6xl px-5 py-10">
-      <p className="mb-4 text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--accent, #059669)' }}>
+      <p className="mb-4 text-[11px] font-black uppercase tracking-widest" style={{ color: 'var(--accent, #a16207)' }}>
         Trending invoice types
       </p>
       <div className="flex flex-wrap gap-2">
@@ -28,9 +28,9 @@ export default function TrendingTopics() {
             href={`/generate?type=${encodeURIComponent(c.category)}`}
             className="rounded-full border px-4 py-1.5 text-[12px] font-semibold transition-colors hover:opacity-80"
             style={{
-              borderColor: 'var(--border, #a7f3d0)',
-              color: 'var(--accent-2, #047857)',
-              background: 'var(--surface-2, #ecfdf5)',
+              borderColor: 'var(--border, #f1dca0)',
+              color: 'var(--accent-2, #854d0e)',
+              background: 'var(--surface-2, #fef6dc)',
             }}
           >
             {c.category}

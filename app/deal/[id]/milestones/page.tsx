@@ -34,7 +34,7 @@ export default async function MilestonesPage({ params }: { params: Promise<{ id:
           <p className="text-slate-400 text-sm mt-0.5">Track deliverables and proof uploads</p>
         </div>
         {isVendor && (
-          <button className="bg-violet-600 hover:bg-violet-700 text-white font-semibold px-4 py-2 rounded-xl text-sm transition-colors">
+          <button className="bg-[#a16207] hover:bg-[#854d0e] text-white font-semibold px-4 py-2 rounded-xl text-sm transition-colors">
             + Add milestone
           </button>
         )}
@@ -67,7 +67,7 @@ export default async function MilestonesPage({ params }: { params: Promise<{ id:
 
               {ms.status === 'PENDING' && isVendor && (
                 <div className="mt-4 pt-4 border-t border-slate-800">
-                  <button className="text-violet-400 hover:text-violet-300 text-sm font-semibold transition-colors">
+                  <button className="text-amber-400 hover:text-amber-300 text-sm font-semibold transition-colors">
                     Upload proof →
                   </button>
                 </div>

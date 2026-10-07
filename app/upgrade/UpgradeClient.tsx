@@ -4,12 +4,9 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 const PRO_FEATURES = [
-  'Unlimited deals',
-  'WhatsApp notifications',
-  'Custom invoice branding',
-  'AI proposal drafting',
-  'Dispute evidence trail',
-  'Priority support',
+  'Everything in Free',
+  'Unlimited active deals',
+  'Overdue-invoice tracking across all deals',
 ]
 
 const FREE_FEATURES = [
@@ -37,12 +34,12 @@ export default function UpgradeClient({ isPro }: { isPro: boolean }) {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 bg-violet-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-[#a16207]/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-3xl">✓</span>
           </div>
           <h1 className="text-2xl font-black text-white mb-2">You're on Pro</h1>
           <p className="text-slate-400 mb-6">Enjoy unlimited deals and all Pro features.</p>
-          <Link href="/dashboard" className="bg-violet-600 hover:bg-violet-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm">
+          <Link href="/dashboard" className="bg-[#a16207] hover:bg-[#854d0e] text-white font-semibold px-6 py-3 rounded-xl transition-colors text-sm">
             Go to dashboard →
           </Link>
         </div>
@@ -67,7 +64,7 @@ export default function UpgradeClient({ isPro }: { isPro: boolean }) {
           <ul className="space-y-2 text-sm text-slate-300 mb-8">
             {FREE_FEATURES.map(f => (
               <li key={f} className="flex items-center gap-2">
-                <span className="text-violet-400">✓</span>{f}
+                <span className="text-amber-400">✓</span>{f}
               </li>
             ))}
           </ul>
@@ -77,11 +74,11 @@ export default function UpgradeClient({ isPro }: { isPro: boolean }) {
         </div>
 
         {/* Pro */}
-        <div className="bg-violet-600 rounded-2xl p-8 relative overflow-hidden">
+        <div className="bg-[#a16207] rounded-2xl p-8 relative overflow-hidden">
           <div className="absolute top-4 right-4 bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full">Popular</div>
           <h3 className="font-black text-white text-xl mb-1">Pro</h3>
           <p className="text-3xl font-black text-white mb-4">
-            $12 <span className="text-violet-200 text-base font-normal">/ month</span>
+            $12 <span className="text-amber-200 text-base font-normal">/ month</span>
           </p>
           <ul className="space-y-2 text-sm text-white mb-8">
             {PRO_FEATURES.map(f => (
@@ -93,7 +90,7 @@ export default function UpgradeClient({ isPro }: { isPro: boolean }) {
           <button
             onClick={handleUpgrade}
             disabled={loading}
-            className="block w-full text-center bg-white text-violet-700 font-bold py-3 rounded-xl transition-opacity hover:opacity-90 text-sm disabled:opacity-60"
+            className="block w-full text-center bg-white text-[#854d0e] font-bold py-3 rounded-xl transition-opacity hover:opacity-90 text-sm disabled:opacity-60"
           >
             {loading ? 'Redirecting…' : 'Upgrade to Pro →'}
           </button>

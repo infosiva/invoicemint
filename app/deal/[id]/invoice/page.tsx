@@ -30,7 +30,7 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
           <p className="text-slate-400 text-sm mt-0.5">Generated from approved milestones</p>
         </div>
         {isVendor && deal.milestones.length > 0 && deal.invoices.length === 0 && (
-          <button className="bg-violet-600 hover:bg-violet-700 text-white font-semibold px-4 py-2 rounded-xl text-sm transition-colors">
+          <button className="bg-[#a16207] hover:bg-[#854d0e] text-white font-semibold px-4 py-2 rounded-xl text-sm transition-colors">
             Generate invoice
           </button>
         )}
@@ -75,7 +75,7 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
                   href={inv.stripeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full text-center bg-violet-600 hover:bg-violet-700 text-white font-semibold py-3 rounded-xl transition-colors text-sm"
+                  className="block w-full text-center bg-[#a16207] hover:bg-[#854d0e] text-white font-semibold py-3 rounded-xl transition-colors text-sm"
                 >
                   Pay now via Stripe →
                 </a>

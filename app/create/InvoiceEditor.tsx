@@ -62,7 +62,7 @@ export default function InvoiceEditor({ invoice, onChange }: Props) {
             value={invoiceNumber}
             onChange={e => onChange({ ...invoice, invoiceNumber: e.target.value })}
             placeholder="INV-001"
-            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-violet-500 transition-colors font-mono"
+            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors font-mono"
           />
         </div>
         <div>
@@ -70,7 +70,7 @@ export default function InvoiceEditor({ invoice, onChange }: Props) {
           <select
             value={currency}
             onChange={e => onChange({ ...invoice, currency: e.target.value as ParsedInvoice['currency'] })}
-            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-violet-500 transition-colors"
+            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors"
           >
             <option value="USD">USD — US Dollar ($)</option>
             <option value="GBP">GBP — British Pound (£)</option>
@@ -88,7 +88,7 @@ export default function InvoiceEditor({ invoice, onChange }: Props) {
             value={invoice.clientName}
             onChange={e => onChange({ ...invoice, clientName: e.target.value })}
             placeholder="Sarah Chen"
-            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-violet-500 transition-colors"
+            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors"
           />
         </div>
         <div>
@@ -98,7 +98,7 @@ export default function InvoiceEditor({ invoice, onChange }: Props) {
             onChange={e => onChange({ ...invoice, clientEmail: e.target.value })}
             placeholder="sarah@company.com"
             type="email"
-            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-violet-500 transition-colors"
+            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors"
           />
         </div>
         <div>
@@ -107,7 +107,7 @@ export default function InvoiceEditor({ invoice, onChange }: Props) {
             value={invoice.vendorName}
             onChange={e => onChange({ ...invoice, vendorName: e.target.value })}
             placeholder="Acme Studio"
-            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-violet-500 transition-colors"
+            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors"
           />
         </div>
         <div>
@@ -116,7 +116,7 @@ export default function InvoiceEditor({ invoice, onChange }: Props) {
             value={invoice.dueDate}
             onChange={e => onChange({ ...invoice, dueDate: e.target.value })}
             type="date"
-            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-violet-500 transition-colors"
+            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors"
           />
         </div>
       </div>
@@ -125,7 +125,7 @@ export default function InvoiceEditor({ invoice, onChange }: Props) {
       <div>
         <div className="flex items-center justify-between mb-2">
           <label className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Line items</label>
-          <button onClick={addItem} className="text-violet-400 hover:text-violet-300 text-xs font-semibold transition-colors">+ Add item</button>
+          <button onClick={addItem} className="text-amber-400 hover:text-amber-300 text-xs font-semibold transition-colors">+ Add item</button>
         </div>
         <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
           <div className="grid grid-cols-12 px-4 py-2.5 text-xs font-bold uppercase tracking-wide text-slate-500 border-b border-slate-800">
@@ -186,7 +186,7 @@ export default function InvoiceEditor({ invoice, onChange }: Props) {
           onChange={e => onChange({ ...invoice, notes: e.target.value })}
           placeholder="Payment terms, project details…"
           rows={2}
-          className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm resize-none focus:outline-none focus:border-violet-500 transition-colors"
+          className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white text-sm resize-none focus:outline-none focus:border-amber-500 transition-colors"
         />
       </div>
     </div>

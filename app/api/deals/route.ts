@@ -66,10 +66,10 @@ export async function POST(req: NextRequest) {
         subject: `${vendor?.email ?? 'Someone'} invited you to review a deal`,
         html: `
           <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
-            <h2 style="color:#7c3aed">You've been invited to InvoiceMint</h2>
+            <h2 style="color:#a16207">You've been invited to InvoiceMint</h2>
             <p>${vendor?.email ?? 'A vendor'} has shared a deal: <strong>${title}</strong></p>
             <p>Click below to review the scope and terms:</p>
-            <a href="${inviteUrl}" style="display:inline-block;background:#7c3aed;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;margin:12px 0">
+            <a href="${inviteUrl}" style="display:inline-block;background:#a16207;color:white;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;margin:12px 0">
               View deal →
             </a>
             <p style="color:#888;font-size:12px">Link expires in 7 days.</p>
