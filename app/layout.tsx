@@ -77,7 +77,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <MotionProvider>{children}</MotionProvider>
         {flags.chatbot && <FloatingChatWrapper />}
         <FeedbackWidget siteName="InvoiceMint" accentColor="#a16207" accentColor2="#854d0e" position="left" />
-        <Script defer data-site="invoicemint.cloud" src="http://31.97.56.148:3098/t.js" strategy="afterInteractive" />
+        <Script defer data-site="invoicemint.cloud" src="/t.js" strategy="afterInteractive" />
         <BackToTop accentColor="#a16207" />
         {ga4 && (
           <>
